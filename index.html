@@ -1,0 +1,1504 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AQUARA · Água limpa não pode ser privilégio</title>
+<meta name="description" content="AQUARA: solução comunitária de tratamento e filtração de água de poços e minas em Parelheiros e Marsilac, São Paulo.">
+<meta name="theme-color" content="#04121d">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Figtree:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap">
+<style>
+/* Layout: página única, faixa central de 1160px; cada seção é uma "estação" do tratamento da água, do problema à verificação. Tema escuro-oceano mantido do site original. */
+:root{
+  color-scheme:dark;
+  --bg:#04121d; --bg-2:#071c2c; --bg-3:#0a2a42;
+  --surface:rgba(255,255,255,.045); --surface-2:rgba(255,255,255,.08);
+  --ink:#eaf4f8; --ink-2:#b9cdd8; --ink-3:#8aa4b3;
+  --aqua:#35d0f0; --teal:#2fbf8f; --amber:#f6c445; --rose:#f06292; --danger:#ff8a8a;
+  --line:rgba(148,199,222,.16); --line-2:rgba(53,208,240,.4);
+  --on-accent:#04222e;
+  --bench:#eef4f6; --bench-2:#ffffff; --bench-ink:#073b54; --bench-ink-2:#5c6b74; --bench-line:#d5e2e9;
+  --grad:linear-gradient(120deg,#35d0f0 0%,#2fbf8f 100%);
+  --f-display:"Bricolage Grotesque","Segoe UI",system-ui,sans-serif;
+  --f-body:"Figtree",-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  --raio:18px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:var(--f-body);font-size:16px;line-height:1.62;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background:radial-gradient(900px 520px at 85% -10%,rgba(53,208,240,.13),transparent 60%),
+             radial-gradient(760px 480px at -10% 35%,rgba(47,191,143,.09),transparent 60%),var(--bg)}
+h1,h2,h3,h4{font-family:var(--f-display);line-height:1.15;margin:0;text-wrap:balance;color:#fff}
+p{margin:0}
+a{color:var(--aqua)}
+:focus-visible{outline:2px solid var(--amber);outline-offset:3px;border-radius:6px}
+.num{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+.wrap{max-width:1160px;margin:0 auto;padding-inline:20px}
+strong{color:#fff}
+
+/* NAV */
+nav.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:100;background:rgba(4,18,29,.86);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
+nav.top .wrap{display:flex;align-items:center;gap:14px;padding-block:10px}
+.logo{display:flex;align-items:center;gap:9px;font-family:var(--f-display);font-weight:800;letter-spacing:.16em;color:#fff;text-decoration:none;flex:0 0 auto}
+.navlinks{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;margin-left:auto;min-width:0}
+.navlinks::-webkit-scrollbar{display:none}
+.navlinks a{white-space:nowrap;text-decoration:none;color:var(--ink-2);font-size:.84rem;font-weight:600;padding:7px 11px;border-radius:9px}
+.navlinks a:hover{color:#fff;background:var(--surface-2)}
+
+/* HERO */
+.hero{position:relative;padding-block:72px 120px;overflow:hidden}
+.hero .wrap{position:relative;z-index:2}
+.kicker{display:inline-flex;align-items:center;gap:10px;font-size:.72rem;font-weight:800;letter-spacing:.26em;text-transform:uppercase;color:var(--aqua);border:1px solid var(--line-2);background:rgba(53,208,240,.08);padding:8px 16px;border-radius:999px}
+.kicker i{width:7px;height:7px;border-radius:50%;background:var(--teal);box-shadow:0 0 12px var(--teal)}
+.hero h1{font-size:clamp(2.5rem,7vw,5rem);font-weight:800;letter-spacing:-.03em;margin:22px 0 18px;max-width:14ch}
+.grad{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero .sub{max-width:62ch;font-size:clamp(1rem,1.6vw,1.15rem);color:var(--ink-2)}
+.territorio{margin:16px 0 22px;color:var(--amber);font-weight:700;letter-spacing:.03em}
+.ods-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:30px}
+.ods{display:flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--line);padding:6px 13px 6px 6px;border-radius:999px;font-size:.8rem;color:var(--ink-2)}
+.ods b{width:26px;height:26px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.8rem;color:#fff}
+.ctas{display:flex;gap:12px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:8px;font:800 .95rem var(--f-body);text-decoration:none;padding:14px 26px;border-radius:999px;border:none;cursor:pointer;transition:transform .2s,box-shadow .2s,background .2s}
+.btn-prim{background:var(--grad);color:var(--on-accent);box-shadow:0 12px 34px rgba(53,208,240,.3)}
+.btn-prim:hover{transform:translateY(-2px)}
+.btn-ghost{background:var(--surface);color:#fff;border:1px solid rgba(255,255,255,.22)}
+.btn-ghost:hover{background:var(--surface-2)}
+.hero-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:52px}
+@media(max-width:860px){.hero-stats{grid-template-columns:repeat(2,1fr)}}
+.hstat{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:18px 16px}
+.hstat .big{font-family:var(--f-mono);font-weight:700;font-size:clamp(1.25rem,2.4vw,1.7rem);color:var(--aqua);font-variant-numeric:tabular-nums}
+.hstat .desc{font-size:.8rem;color:var(--ink-3);margin-top:4px}
+.ondas{position:absolute;left:0;right:0;bottom:-2px;z-index:1;pointer-events:none;overflow:hidden}
+.ondas svg{display:block;width:200%;height:90px;animation:ond 18s linear infinite}
+@keyframes ond{to{transform:translateX(-50%)}}
+
+/* SEÇÕES */
+section{padding-block:76px;scroll-margin-top:70px}
+section.alt{background:linear-gradient(180deg,rgba(6,32,51,.55),rgba(6,32,51,.2))}
+.sec-head{max-width:760px;margin-bottom:34px;display:grid;gap:12px}
+.eyebrow{font-size:.74rem;font-weight:800;letter-spacing:.24em;text-transform:uppercase;color:var(--aqua)}
+.sec-head h2{font-size:clamp(1.8rem,3.6vw,2.6rem);font-weight:800;letter-spacing:-.02em}
+.sec-head p{color:var(--ink-2)}
+h3.sub{font-size:1.2rem;margin:34px 0 12px}
+
+.grid{display:grid;gap:16px}
+.g4{grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+.g3{grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.g2{grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}
+@media(max-width:420px){.g2{grid-template-columns:1fr}}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--raio);padding:22px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.card h3{font-size:1.06rem}
+.card p,.card li{font-size:.92rem;color:var(--ink-2)}
+.card ul{margin:0;padding-left:18px;display:grid;gap:6px}
+.tag{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:9px;background:var(--grad);color:var(--on-accent);font:800 .9rem var(--f-display);flex:0 0 30px}
+.card-top{display:flex;align-items:center;gap:10px}
+.preco{align-self:flex-start;margin-top:auto;font:700 .82rem var(--f-mono);color:var(--aqua);border:1px solid var(--line-2);background:rgba(53,208,240,.08);padding:4px 12px;border-radius:999px}
+
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px;margin-bottom:22px}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:var(--raio);padding:22px 18px}
+.stat .big{font:700 1.8rem var(--f-mono);color:#fff;font-variant-numeric:tabular-nums}
+.stat .desc{font-size:.85rem;color:var(--ink-3);margin-top:6px}
+
+.alerta{border-radius:14px;padding:16px 20px;font-size:.93rem;color:var(--ink-2);border:1px solid var(--line);background:rgba(255,138,138,.06);border-left:4px solid var(--danger)}
+.alerta.verde{background:rgba(47,191,143,.07);border-left-color:var(--teal)}
+.alerta.amber{background:rgba(246,196,69,.06);border-left-color:var(--amber)}
+
+/* fluxo */
+.fluxo{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:28px;border:1px solid var(--line);border-radius:var(--raio);overflow:hidden}
+@media(max-width:820px){.fluxo{grid-template-columns:1fr 1fr}}
+@media(max-width:440px){.fluxo{grid-template-columns:1fr}}
+.fx{padding:20px;background:var(--surface);border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+.fx .n{font:700 .78rem var(--f-mono);color:var(--aqua);letter-spacing:.1em}
+.fx strong{display:block;font-family:var(--f-display);font-size:1.1rem;margin:4px 0}
+.fx span{font-size:.86rem;color:var(--ink-3)}
+
+/* ===== PROTÓTIPO 3D ===== */
+.p3-layout{display:flex;gap:16px;align-items:stretch}
+@media(max-width:980px){.p3-layout{flex-direction:column}}
+.p3-view{flex:1;min-width:0;height:min(72vh,620px);min-height:440px;position:relative;border-radius:22px;overflow:hidden;border:1px solid var(--line);
+  background:radial-gradient(120% 90% at 50% 0%,#0b3350 0%,#072438 45%,#04121d 100%)}
+#p3-cv{display:block;width:100%;height:100%;cursor:grab;touch-action:none}
+#p3-cv:active{cursor:grabbing}
+.pill{z-index:2;position:absolute;font-size:.74rem;color:var(--ink-2);background:rgba(4,18,29,.72);border:1px solid var(--line);padding:6px 12px;border-radius:999px;pointer-events:none}
+#p3-labels{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.p3-lbl{position:absolute;transform:translate(-50%,-100%);pointer-events:auto;background:none;border:0;padding:0 0 var(--h,40px);cursor:pointer;font:inherit}
+.p3-lbl::after{content:"";position:absolute;left:50%;bottom:0;width:1.5px;height:var(--h,40px);background:rgba(53,208,240,.6);transform:translateX(-50%)}
+.p3-lbl::before{content:"";position:absolute;left:50%;bottom:-3px;width:7px;height:7px;border-radius:50%;background:var(--aqua);transform:translateX(-50%)}
+.p3-lbl .t{display:block;white-space:nowrap;font:700 .76rem var(--f-body);color:var(--ink);background:rgba(4,18,29,.86);border:1px solid var(--line-2);padding:5px 10px;border-radius:8px}
+.p3-lbl .t b{color:var(--aqua)}
+.p3-lbl.sel .t{background:var(--aqua);color:var(--on-accent);border-color:transparent}
+.p3-lbl.sel .t b{color:var(--on-accent)}
+#p3-labels.compact .full{display:none}
+.p3-erro{position:absolute;inset:auto 16px 50%;text-align:center;color:var(--ink-2)}
+.zoom-btns{z-index:2;position:absolute;right:12px;bottom:12px;display:flex;gap:6px}
+.zoom-btns button{width:36px;height:36px;border-radius:10px;border:1px solid var(--line);background:rgba(4,18,29,.8);color:#fff;font:700 1.1rem var(--f-body);cursor:pointer}
+.zoom-btns button:hover{border-color:var(--aqua)}
+.p3-panel{width:340px;flex:0 0 340px;display:flex;flex-direction:column;gap:12px}
+@media(max-width:980px){.p3-panel{width:100%;flex:auto}}
+.box{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px}
+.box h4{font:800 .74rem var(--f-body);letter-spacing:.18em;text-transform:uppercase;color:var(--aqua);margin-bottom:10px}
+.p3-peca{display:flex;align-items:center;gap:10px;width:100%;text-align:left;background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:11px;padding:8px 10px;margin-bottom:6px;cursor:pointer;color:var(--ink-2);font:600 .86rem var(--f-body)}
+.p3-peca:hover{color:#fff;border-color:var(--line-2)}
+.p3-peca.sel{background:rgba(53,208,240,.12);border-color:var(--aqua);color:#fff}
+.p3-peca .tag{width:24px;height:24px;flex-basis:24px;font-size:.78rem;border-radius:7px}
+.p3-peca small{margin-left:auto;font:600 .72rem var(--f-mono);color:var(--ink-3)}
+#p3-info .nome{font-weight:800;color:#fff}
+#p3-info .preco{margin:6px 0 8px;display:inline-block}
+#p3-info p{font-size:.86rem;color:var(--ink-2)}
+.tgl{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:6px 0;font-size:.88rem;font-weight:600;color:var(--ink-2);cursor:pointer}
+.tgl input{width:18px;height:18px;accent-color:var(--aqua)}
+.btn-mini{width:100%;margin-top:8px;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:10px;padding:10px;font:700 .86rem var(--f-body);cursor:pointer}
+.btn-mini:hover{border-color:var(--aqua)}
+
+/* ===== SIMULAÇÃO 2D ===== */
+.passos{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.passo{flex:1 1 140px;border:1px solid var(--line);background:var(--surface);border-radius:12px;padding:10px 12px;cursor:pointer;text-align:left;font-family:var(--f-body);color:var(--ink-2)}
+.passo:hover{border-color:var(--line-2)}
+.passo .n{display:inline-flex;width:24px;height:24px;border-radius:50%;background:var(--bg-3);color:var(--aqua);font:700 .78rem var(--f-mono);align-items:center;justify-content:center;margin-right:6px;border:1px solid var(--line-2)}
+.passo .t{font-weight:800;font-size:.88rem;color:#fff}
+.passo .d{display:block;font-size:.76rem;color:var(--ink-3);margin-top:2px}
+.passo.ativo{border-color:var(--teal);background:rgba(47,191,143,.12)}
+.passo.ativo .n,.passo.feito .n{background:var(--teal);color:var(--on-accent);border-color:var(--teal)}
+.s2-ctrl{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.btn-sm{border:1px solid var(--line);border-radius:10px;padding:10px 16px;font:700 .86rem var(--f-body);cursor:pointer;background:var(--surface);color:#fff}
+.btn-sm.prim{background:var(--grad);color:var(--on-accent);border-color:transparent}
+.bench{background:var(--bench);border-radius:var(--raio);padding:12px;overflow-x:auto}
+.bench svg{display:block;width:100%;min-width:640px;height:auto}
+.bench svg text{font-family:var(--f-body)}
+.etq{font-size:12px;font-weight:800;fill:var(--bench-ink)}
+.etq-sub{font-size:10px;fill:var(--bench-ink-2)}
+.hl{filter:drop-shadow(0 0 7px #f6c445) drop-shadow(0 0 2px #f6c445)}
+.cap{font-size:.84rem;color:var(--ink-3);text-align:center;margin-top:10px}
+.medidores{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:14px}
+.med{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+.med h4{font:800 .72rem var(--f-body);letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-bottom:6px}
+.med .val{font:700 1.35rem var(--f-mono);color:#fff;font-variant-numeric:tabular-nums}
+.med .unit{font-size:.76rem;color:var(--ink-3)}
+.barra{height:10px;border-radius:999px;background:rgba(255,255,255,.08);overflow:hidden;margin:8px 0 4px;position:relative}
+.barra .fill{height:100%;border-radius:999px;transition:width .4s}
+.zonas{position:absolute;inset:0;display:flex}
+.agulha{position:absolute;top:-4px;width:4px;height:18px;background:#fff;border-radius:2px;transition:left .4s}
+.badge{display:inline-block;font-weight:800;font-size:.9rem;padding:8px 12px;border-radius:10px;background:rgba(255,255,255,.08);color:var(--ink-2)}
+.badge.ok{background:rgba(47,191,143,.18);color:#8fe6c4}
+.badge.atencao{background:rgba(246,196,69,.15);color:#ffd97a}
+.badge.info{background:rgba(53,208,240,.14);color:var(--aqua)}
+
+/* tabs montagem */
+.tabs{display:flex;gap:8px;flex-wrap:wrap}
+.tab-btn{background:var(--surface);border:1px solid var(--line);color:var(--ink-2);padding:11px 18px;font:700 .9rem var(--f-body);cursor:pointer;border-radius:12px}
+.tab-btn[aria-selected="true"]{background:var(--grad);color:var(--on-accent);border-color:transparent}
+.tab-corpo{background:var(--surface);border:1px solid var(--line);border-radius:var(--raio);padding:26px;margin-top:10px}
+.passo-item{display:flex;gap:14px;margin-bottom:14px}
+.passo-item .n{flex:0 0 32px;height:32px;border-radius:50%;background:var(--grad);color:var(--on-accent);font:700 .85rem var(--f-mono);display:flex;align-items:center;justify-content:center}
+.passo-item p{font-size:.93rem;color:var(--ink-2);max-width:72ch}
+
+/* calculadora */
+.calc{background:linear-gradient(150deg,rgba(10,42,66,.95),rgba(4,18,29,.95));border:1px solid var(--line);border-radius:24px;padding:30px}
+.calc h3{font-size:1.2rem}
+.calc .lead{color:var(--ink-3);font-size:.9rem;margin:4px 0 18px}
+.campos{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-bottom:16px}
+.campos label{display:block;font-size:.8rem;font-weight:700;color:var(--ink-2);margin-bottom:6px}
+.campos input,.campos select{width:100%;padding:12px 14px;border-radius:12px;border:1px solid var(--line);background:rgba(255,255,255,.06);color:#fff;font:600 1rem var(--f-body)}
+.campos input:focus,.campos select:focus{outline:none;border-color:var(--aqua);box-shadow:0 0 0 3px rgba(53,208,240,.2)}
+.campos select option{color:#111;background:#fff}
+input[type=range]{width:100%;accent-color:var(--aqua);padding:0;border:none;background:none}
+.res{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.res div{background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:14px;padding:14px;text-align:center}
+.res .val{font:700 1.35rem var(--f-mono);color:var(--amber);font-variant-numeric:tabular-nums}
+.res .rot{font-size:.76rem;color:var(--ink-3);margin-top:2px}
+.calc-bloco{margin-top:24px;padding-top:22px;border-top:1px solid var(--line)}
+.aviso{font-size:.84rem;color:var(--ink-2);background:rgba(246,196,69,.07);border:1px solid rgba(246,196,69,.25);border-radius:12px;padding:12px 16px;margin-top:14px}
+
+/* tabelas */
+.tw{overflow-x:auto;border:1px solid var(--line);border-radius:14px;background:rgba(4,18,29,.5);margin-top:12px}
+table{border-collapse:collapse;width:100%;font-size:.88rem;min-width:600px}
+th{background:rgba(53,208,240,.1);color:var(--aqua);padding:11px 14px;text-align:left;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;font-weight:800;border-bottom:1px solid var(--line)}
+td{padding:11px 14px;border-bottom:1px solid rgba(148,199,222,.08);color:var(--ink-2);vertical-align:top}
+td:first-child{color:#fff;font-weight:600}
+td.pr{font-family:var(--f-mono);font-variant-numeric:tabular-nums;white-space:nowrap;color:var(--aqua)}
+tr:last-child td{border-bottom:none}
+tr.total td{background:rgba(53,208,240,.1);color:#fff;font-weight:800}
+
+details.mais{margin-top:18px;border:1px solid var(--line);border-radius:14px;background:var(--surface)}
+details.mais summary{cursor:pointer;padding:14px 18px;font-weight:700;color:#fff}
+details.mais > div{padding:0 18px 18px}
+
+/* compras */
+.lugar{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;align-items:start}
+.lugar .k{font:700 .8rem var(--f-mono);color:var(--aqua);padding-top:3px}
+.rota{counter-reset:r;display:grid;gap:12px}
+.check{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:6px 18px}
+.check label{display:flex;gap:10px;align-items:flex-start;font-size:.9rem;color:var(--ink-2);padding:6px 0;cursor:pointer}
+.check input{width:18px;height:18px;accent-color:var(--teal);margin-top:2px;flex:0 0 18px}
+.check input:checked + span{color:var(--ink-3);text-decoration:line-through}
+.prog{font:700 .85rem var(--f-mono);color:var(--teal)}
+
+/* timeline */
+.timeline{border-left:2px solid var(--line-2);margin:10px 0 24px 8px;padding-left:28px;display:grid;gap:22px}
+.tl{position:relative}
+.tl::before{content:"";position:absolute;left:-37px;top:5px;width:14px;height:14px;border-radius:50%;background:var(--grad);box-shadow:0 0 0 5px rgba(53,208,240,.15)}
+.tl .q{font:700 .78rem var(--f-mono);color:var(--aqua);text-transform:uppercase;letter-spacing:.08em}
+.tl .o{font-size:.94rem;color:var(--ink-2);margin-top:2px}
+
+/* equipe */
+.membro{align-items:flex-start}
+.avatar{width:56px;height:56px;border-radius:16px;background:var(--bg-3);border:1px dashed var(--line-2);display:flex;align-items:center;justify-content:center;font:800 1.1rem var(--f-display);color:var(--aqua)}
+.membro .nome{font-family:var(--f-display);font-weight:800;color:#fff;font-size:1.05rem}
+.membro .nome.vazio{color:var(--ink-3);font-style:italic;font-weight:600}
+.membro .funcao{font:700 .74rem var(--f-body);letter-spacing:.14em;text-transform:uppercase;color:var(--teal)}
+
+/* FAQ */
+.faq{display:grid;gap:10px}
+.faq details{background:var(--surface);border:1px solid var(--line);border-radius:14px}
+.faq details[open]{border-color:var(--line-2);background:var(--surface-2)}
+.faq summary{cursor:pointer;list-style:none;padding:17px 20px;font-weight:700;color:#fff;display:flex;justify-content:space-between;gap:12px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";color:var(--aqua);font:700 1.2rem var(--f-mono);line-height:1}
+.faq details[open] summary::after{content:"–"}
+.faq details p{padding:0 20px 18px;color:var(--ink-2);font-size:.93rem;max-width:80ch}
+
+.cta-box{background:linear-gradient(150deg,rgba(10,42,66,.95),rgba(4,18,29,.95));border:1px solid var(--line-2);border-radius:26px;padding:54px 28px;text-align:center;display:grid;gap:16px;justify-items:center}
+.cta-box h2{font-size:clamp(1.8rem,4vw,2.6rem)}
+.cta-box p{color:var(--ink-2);max-width:60ch}
+footer{border-top:1px solid var(--line);padding-block:40px 50px;text-align:center;color:var(--ink-3);font-size:.84rem;background:rgba(3,13,21,.6)}
+footer .refs{margin-top:12px;font-size:.78rem;max-width:820px;margin-inline:auto}
+
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+
+/* ================= AQUARA · camada de redesign =================
+   Conceito: descida pela coluna d'água. O fundo escurece com o scroll, a água sobe dentro do nome
+   no hero e cada seção tem um movimento próprio. */
+:root{--e:cubic-bezier(.2,.8,.2,1);--bg:#04121d}
+.sr{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.skip{position:fixed;left:12px;top:-60px;z-index:300;background:#fff;color:#04222e;padding:10px 16px;border-radius:10px;font-weight:800;text-decoration:none}
+.skip:focus{top:12px}
+.depth{position:fixed;inset:0;z-index:-2;pointer-events:none;background:linear-gradient(180deg,#041a2b,#02080d)}
+.depth::before{content:"";position:absolute;inset:0;opacity:var(--d,1);background:radial-gradient(1100px 640px at 80% -8%,rgba(53,208,240,.2),transparent 62%),radial-gradient(800px 520px at -8% 38%,rgba(47,191,143,.1),transparent 60%),linear-gradient(180deg,#0a3556,transparent 70%)}
+body::before{background:none!important}
+body{background:#02080d}
+.gauge{position:fixed;right:16px;top:50%;width:3px;height:30vh;transform:translateY(-50%);background:rgba(148,199,222,.16);border-radius:3px;z-index:90;overflow:hidden;pointer-events:none}
+.gauge i{position:absolute;inset:0;background:linear-gradient(0deg,var(--aqua),var(--teal));transform-origin:bottom;transform:scaleY(var(--sp,0))}
+@media(max-width:700px){.gauge{display:none}}
+
+/* NAV */
+nav.top{position:fixed;left:0;right:0;top:0;padding-top:env(safe-area-inset-top,0px);background:transparent;border-bottom:1px solid transparent;-webkit-backdrop-filter:none;backdrop-filter:none;transition:background .4s,border-color .4s}
+nav.top.sc{background:rgba(4,18,29,.7);-webkit-backdrop-filter:blur(18px) saturate(1.4);backdrop-filter:blur(18px) saturate(1.4);border-color:var(--line)}
+.navlinks{-webkit-mask-image:linear-gradient(90deg,transparent,#000 10px,#000 calc(100% - 22px),transparent);mask-image:linear-gradient(90deg,transparent,#000 10px,#000 calc(100% - 22px),transparent)}
+.navlinks a{min-height:40px;display:inline-flex;align-items:center;transition:color .3s,background .3s}
+.navlinks a[aria-current]{color:#fff;background:rgba(53,208,240,.15)}
+
+/* HERO */
+.hero{min-height:100svh;display:flex;flex-direction:column;justify-content:center;padding:clamp(104px,15vh,160px) 0 150px}
+#hero-cv{position:absolute;inset:0;width:100%;height:100%;z-index:0}
+.hero-glow{position:absolute;inset:0;z-index:0;pointer-events:none;background:radial-gradient(55% 55% at 72% 28%,rgba(53,208,240,.2),transparent 70%),linear-gradient(180deg,transparent 65%,rgba(2,8,13,.85))}
+.hero-glow::after{content:"";position:absolute;inset:-20% -10% auto;height:90%;background:repeating-linear-gradient(104deg,transparent 0 90px,rgba(160,230,250,.05) 90px 150px,transparent 150px 260px);transform:translateX(calc(var(--sy,0)*-.05px));animation:rays 14s ease-in-out infinite alternate;-webkit-mask-image:linear-gradient(180deg,#000,transparent);mask-image:linear-gradient(180deg,#000,transparent)}
+@keyframes rays{to{opacity:.35;transform:translateX(40px)}}
+.hero .wrap{max-width:1240px;width:100%;padding-inline:clamp(20px,5vw,56px)}
+.kicker{letter-spacing:.04em;text-transform:none;font-size:.85rem;font-weight:700;background:rgba(53,208,240,.07)}
+.hero h1{font-size:clamp(2.9rem,8.4vw,7.4rem);line-height:.97;letter-spacing:-.045em;max-width:12ch;margin:26px 0 26px}
+.hero h1 .grad{display:inline-block;position:relative;padding-bottom:.1em;background:linear-gradient(100deg,#35d0f0,#8ff5d4,#2fbf8f,#35d0f0);background-size:260% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 8s ease-in-out infinite alternate}
+.hero h1 .grad::after{content:"";position:absolute;left:0;right:0;bottom:0;height:.13em;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 10'%3E%3Cpath d='M0 5Q10 0 20 5T40 5' fill='none' stroke='%2335d0f0' stroke-width='2'/%3E%3C/svg%3E") 0 0/.9em 100% repeat-x;animation:slide 2.6s linear infinite}
+@keyframes shine{to{background-position:100% 0}}
+@keyframes slide{to{background-position-x:.9em}}
+.hero .sub{font-size:clamp(1.05rem,1.7vw,1.25rem);line-height:1.6}
+.territorio{color:#8fe6c4;letter-spacing:.01em}
+.ods{background:rgba(255,255,255,.04);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.btn{min-height:48px}
+.btn-prim{box-shadow:0 14px 44px rgba(53,208,240,.32)}
+.hero-stats{gap:0;margin-top:clamp(36px,7vh,72px);border-top:1px solid var(--line)}
+.hstat{background:none;border:0;border-radius:0;border-left:1px solid var(--line);padding:22px 20px}
+.hstat:first-child{border-left:0;padding-left:0}
+@media(max-width:860px){.hstat:nth-child(3){border-left:0;padding-left:0}.hstat:nth-child(n+3){border-top:1px solid var(--line)}}
+.hstat .big{color:#fff;font-size:clamp(1.3rem,2.6vw,1.9rem)}
+.js .hero .wrap>*{animation:rise 1.1s var(--e) both}
+.js .hero .wrap>:nth-child(2){animation-delay:.12s;animation-duration:1.5s}
+.js .hero .wrap>:nth-child(3){animation-delay:.3s}
+.js .hero .wrap>:nth-child(4){animation-delay:.4s}
+.js .hero .wrap>:nth-child(5){animation-delay:.5s}
+.js .hero .wrap>:nth-child(6){animation-delay:.6s}
+.js .hero .wrap>:nth-child(7){animation-delay:.75s}
+@keyframes rise{from{opacity:0;transform:translateY(34px);filter:blur(8px)}}
+.wm{position:absolute;left:0;right:0;bottom:44px;z-index:1;pointer-events:none;transform:translateY(calc(var(--sy,0)*.1px))}
+.wm svg{display:block;width:100%;height:auto}
+.wm text{font-family:var(--f-display);font-weight:800;font-size:240px;letter-spacing:-8px}
+.wm-o{fill:none;stroke:rgba(160,220,240,.3);stroke-width:1.5}
+.wm-f{fill:url(#wg);opacity:.42}
+.ondas{z-index:2}
+.ondas svg{height:110px}
+.cue{position:absolute;right:clamp(20px,4vw,56px);bottom:48px;z-index:3;width:44px;height:84px;display:flex;justify-content:center}
+.cue span{position:relative;width:2px;height:100%;background:linear-gradient(var(--line-2),transparent)}
+.cue span::after{content:"";position:absolute;left:-3px;top:0;width:8px;height:8px;border-radius:50%;background:var(--aqua);box-shadow:0 0 14px var(--aqua);animation:drip 2.2s var(--e) infinite}
+@keyframes drip{0%{transform:translateY(0);opacity:0}15%{opacity:1}100%{transform:translateY(70px);opacity:0}}
+
+/* SEÇÕES: ritmo, tipografia, eyebrow discreto */
+section{padding-block:clamp(88px,12vw,168px)}
+section.alt{background:linear-gradient(180deg,transparent,rgba(53,208,240,.035) 50%,transparent)}
+.sec-head{max-width:880px;margin-bottom:clamp(36px,6vw,72px);gap:16px}
+.eyebrow{display:flex;align-items:center;gap:12px;font-size:.9rem;font-weight:700;letter-spacing:.02em;text-transform:none;color:var(--teal)}
+.eyebrow::before{content:"";width:30px;height:1px;background:currentColor}
+.sec-head h2{font-size:clamp(2.2rem,5.4vw,4.4rem);line-height:1.02;letter-spacing:-.04em}
+.sec-head p{font-size:clamp(1rem,1.5vw,1.16rem);max-width:64ch}
+.card{background:linear-gradient(160deg,rgba(53,208,240,.06),rgba(255,255,255,.015));border-radius:26px}
+.alerta{border:0;border-left:3px solid var(--danger);border-radius:0 16px 16px 0}
+.alerta.verde{border-left-color:var(--teal)}.alerta.amber{border-left-color:var(--amber)}
+
+/* PROBLEMA: editorial */
+#problema .wrap{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr);gap:clamp(28px,5vw,64px);align-items:center}
+#problema .wrap>.stats,#problema .wrap>.alerta{grid-column:1/-1}
+#problema .sec-head{margin:0}
+.glass{margin:0;justify-self:center;width:min(100%,270px)}
+.glass svg{display:block;width:100%;height:auto;filter:drop-shadow(0 30px 60px rgba(53,208,240,.25))}
+.glass .surf{animation:surf 3.4s linear infinite}
+@keyframes surf{to{transform:translateX(-80px)}}
+.glass .pt{opacity:.8;fill:#a98d78;animation:fl 7s ease-in-out infinite alternate}
+.glass .pt:nth-child(2n){animation-duration:9s;animation-delay:-3s}.glass .pt:nth-child(3n){animation-duration:11s;animation-delay:-6s}
+@keyframes fl{to{transform:translate(7px,-16px)}}
+.js .glass .pt{opacity:.06}
+.js .glass.in .pt{opacity:.8;transition:opacity 2s 1.3s}
+@media(max-width:860px){#problema .wrap{grid-template-columns:1fr}.glass{width:190px;order:2}}
+.stats{gap:0;border-top:1px solid var(--line);margin-bottom:0}
+.stat{background:none;border:0;border-radius:0;border-left:1px solid var(--line);padding:30px 24px}
+.stat:first-child{border-left:0;padding-left:0}
+.stat .big{font:800 clamp(2.4rem,5vw,4.2rem) var(--f-display);letter-spacing:-.04em;line-height:1}
+.stat .desc{font-size:.95rem;max-width:26ch}
+@media(max-width:700px){.stat{border-left:0;border-top:1px solid var(--line);padding-left:0}.stat:first-child{border-top:0}}
+
+/* KIT: composição assimétrica */
+#kit .g4{grid-template-columns:repeat(12,1fr);gap:20px;counter-reset:k}
+#kit .card{grid-column:span 6;min-height:280px;padding:clamp(24px,3vw,40px);position:relative;overflow:hidden;counter-increment:k;border-radius:30px}
+#kit .card:nth-child(1),#kit .card:nth-child(4){grid-column:span 7}
+#kit .card:nth-child(2),#kit .card:nth-child(3){grid-column:span 5}
+#kit .card::after{content:counter(k,upper-alpha);position:absolute;right:-.04em;bottom:-.24em;font:800 clamp(9rem,16vw,15rem)/1 var(--f-display);color:rgba(53,208,240,.07);pointer-events:none}
+#kit .card h3{font-size:clamp(1.3rem,2.2vw,1.8rem);letter-spacing:-.02em}
+#kit .card p{font-size:1rem;max-width:44ch}
+@media(max-width:860px){#kit .card,#kit .card:nth-child(n){grid-column:1/-1;min-height:0}}
+.fluxo{border:0;border-radius:0;margin-top:clamp(48px,8vw,96px);overflow:visible}
+.fx{background:none;border:0;padding:30px 22px 0 0;position:relative}
+.fx::before{content:"";position:absolute;left:0;right:0;top:5px;height:2px;background:rgba(148,199,222,.2)}
+.fx::after{content:"";position:absolute;left:0;top:0;width:12px;height:12px;border-radius:50%;background:var(--bg);border:2px solid var(--line-2);transition:.6s}
+.js .fx{opacity:.3;transition:opacity .8s}
+.fx.on{opacity:1}
+.fx.on::before{background:linear-gradient(90deg,var(--aqua),var(--teal))}
+.fx.on::after{background:var(--aqua);border-color:transparent;box-shadow:0 0 0 6px rgba(53,208,240,.16)}
+.fx .n{letter-spacing:.04em}
+.fx strong{font-size:1.35rem}
+
+/* PROTÓTIPO 3D: palco */
+#prototipo-3d{background:radial-gradient(70% 55% at 50% 45%,rgba(53,208,240,.09),transparent 70%)}
+#prototipo-3d .wrap{max-width:1400px}
+.p3-layout{gap:20px}
+.p3-view{height:min(84vh,780px);min-height:460px;border:0;border-radius:34px;background:radial-gradient(60% 50% at 50% 62%,rgba(53,208,240,.24),transparent 72%),radial-gradient(120% 90% at 50% 0%,#0e3c5f 0%,#06233a 48%,#030d16 100%);box-shadow:0 50px 140px -50px rgba(53,208,240,.4),inset 0 1px 0 rgba(255,255,255,.1)}
+.p3-view::after{content:"";position:absolute;inset:auto 0 0;height:32%;background:linear-gradient(0deg,rgba(53,208,240,.13),transparent);pointer-events:none}
+.js .p3-view{opacity:0;transform:translateY(46px);transition:opacity 1.2s var(--e),transform 1.2s var(--e)}
+.js .p3-view.in{opacity:1;transform:none}
+.pill,.zoom-btns button{-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+.zoom-btns button{width:44px;height:44px;border-radius:14px}
+.p3-lbl .t{border-radius:999px;padding:6px 12px;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.p3-panel{width:360px;flex-basis:360px}
+.box{background:rgba(255,255,255,.035);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-radius:24px;padding:20px}
+.box h4{letter-spacing:.02em;text-transform:none;font-size:.95rem;color:var(--teal)}
+.p3-peca{min-height:46px;border-radius:14px;transition:background .3s,border-color .3s}
+.p3-peca.sel{box-shadow:0 0 0 1px var(--aqua),0 10px 30px -10px rgba(53,208,240,.5)}
+.tgl{min-height:40px}
+.btn-mini{min-height:44px;border-radius:14px}
+
+/* MONTAGEM */
+.tabs{display:inline-flex;max-width:100%;overflow-x:auto;padding:6px;background:rgba(255,255,255,.05);border-radius:999px;gap:2px}
+.tab-btn{border:0;background:none;border-radius:999px;min-height:44px;white-space:nowrap;transition:background .3s,color .3s}
+.tab-corpo{background:none;border:0;padding:clamp(28px,4vw,48px) 0 0;margin:0}
+[role=tabpanel]:not([hidden]){animation:panel .6s var(--e)}
+@keyframes panel{from{opacity:0;transform:translateY(18px)}}
+.passo-item{position:relative;gap:20px;margin-bottom:0;padding-bottom:26px}
+.passo-item::before{content:"";position:absolute;left:19px;top:44px;bottom:6px;width:1px;background:var(--line-2)}
+.passo-item:has(+.alerta)::before{display:none}
+.passo-item .n{flex:0 0 40px;height:40px;font-size:.95rem}
+.passo-item p{font-size:1.04rem;line-height:1.65;padding-top:6px}
+
+/* CALCULADORA: bancada de laboratório */
+.calc{border-radius:34px;padding:clamp(22px,4vw,52px);border-color:var(--line-2);background:linear-gradient(rgba(53,208,240,.05) 1px,transparent 1px) 0 0/100% 34px,linear-gradient(90deg,rgba(53,208,240,.05) 1px,transparent 1px) 0 0/34px 100%,linear-gradient(150deg,#0a2d47,#04121d);box-shadow:0 40px 120px -50px rgba(53,208,240,.4)}
+.calc h3{font-size:clamp(1.3rem,2.2vw,1.7rem)}
+.campos label{letter-spacing:.01em}
+.campos input,.campos select{min-height:48px;border-radius:14px;font-family:var(--f-mono);background:rgba(4,18,29,.65)}
+input[type=range]{-webkit-appearance:none;appearance:none;height:28px;background:none}
+input[type=range]::-webkit-slider-runnable-track{height:6px;border-radius:6px;background:linear-gradient(90deg,var(--aqua),var(--teal)) 0 0/var(--p,50%) 100% no-repeat,rgba(255,255,255,.14)}
+input[type=range]::-moz-range-track{height:6px;border-radius:6px;background:rgba(255,255,255,.14)}
+input[type=range]::-moz-range-progress{height:6px;border-radius:6px;background:var(--aqua)}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;margin-top:-8px;border-radius:50%;background:#fff;border:0;box-shadow:0 0 0 5px rgba(53,208,240,.3),0 4px 14px rgba(0,0,0,.4)}
+input[type=range]::-moz-range-thumb{width:22px;height:22px;border-radius:50%;background:#fff;border:0;box-shadow:0 0 0 5px rgba(53,208,240,.3)}
+.res div{background:rgba(4,18,29,.62);border-radius:18px;padding:18px 14px}
+.res .val{font-size:clamp(1.4rem,2.6vw,2.1rem);color:var(--aqua);text-shadow:0 0 28px rgba(53,208,240,.35)}
+.res .val.tick{animation:tick .55s var(--e)}
+@keyframes tick{40%{transform:translateY(-4px);color:#fff;text-shadow:0 0 34px #fff}}
+.dosebar{margin:4px 0 22px}
+.dosebar .trk{position:relative;height:10px;border-radius:10px;background:rgba(255,255,255,.1)}
+.dosebar .zone{position:absolute;left:10%;width:10%;top:0;bottom:0;background:var(--teal);border-radius:10px}
+.dosebar .lim{position:absolute;top:-4px;width:2px;height:18px;background:var(--amber)}
+.dosebar .l2{left:40%}.dosebar .l5{left:100%;background:var(--danger)}
+.dosebar .mk{position:absolute;top:-7px;width:6px;height:24px;margin-left:-3px;border-radius:3px;background:#fff;box-shadow:0 0 14px #fff;transition:left .5s var(--e)}
+.dosebar .lab{position:relative;height:38px;margin-top:10px;font-size:.74rem;color:var(--ink-3)}
+.dosebar .lab span{position:absolute;white-space:nowrap}
+.dosebar .lab span:nth-child(1){left:0}.dosebar .lab span:nth-child(2){left:10%}.dosebar .lab span:nth-child(3){left:40%;top:18px}.dosebar .lab span:nth-child(4){right:0;top:18px}
+
+/* TABELAS */
+.tw{border-radius:22px;background:rgba(4,18,29,.55)}
+th{text-transform:none;letter-spacing:.02em;font-size:.82rem}
+tbody tr{transition:background .25s}
+tbody tr:hover{background:rgba(53,208,240,.05)}
+@media(max-width:640px){
+  table.stack{min-width:0}table.stack thead{display:none}
+  table.stack tr{display:block;padding:12px 0;border-bottom:1px solid var(--line)}
+  table.stack td{display:flex;gap:14px;justify-content:space-between;border:0;padding:5px 16px}
+  table.stack td[data-label]::before{content:attr(data-label);flex:0 0 38%;color:var(--ink-3);font-size:.78rem;font-weight:600}
+  table.stack td.pr{white-space:normal}
+}
+details.mais{border-radius:18px}
+
+/* CRONOGRAMA */
+.timeline{border:0;position:relative;margin:clamp(32px,5vw,56px) 0 clamp(40px,6vw,72px);padding-left:48px;gap:clamp(30px,5vw,52px)}
+.timeline::before{content:"";position:absolute;left:6px;top:6px;bottom:6px;width:2px;background:rgba(148,199,222,.18)}
+.timeline::after{content:"";position:absolute;left:6px;top:6px;width:2px;height:calc((100% - 12px)*var(--p,0));background:linear-gradient(var(--aqua),var(--teal));box-shadow:0 0 14px var(--aqua)}
+.tl::before{left:-49px;top:5px;background:var(--bg);border:2px solid var(--line-2);box-shadow:none;transition:.6s}
+.tl.on::before{background:var(--grad);border-color:transparent;box-shadow:0 0 0 6px rgba(53,208,240,.16)}
+.tl .q{font-size:.95rem;text-transform:none;letter-spacing:.01em}
+.tl .o{font:600 clamp(1.1rem,2vw,1.45rem)/1.4 var(--f-display);color:#fff;max-width:48ch;margin-top:4px}
+
+/* EQUIPE */
+#equipe .card{background:none;border:0;border-top:1px solid var(--line);border-radius:0;padding:28px 0}
+.avatar{width:60px;height:60px;border-radius:50%;border:1px solid var(--line-2);background:radial-gradient(circle at 30% 25%,rgba(53,208,240,.32),rgba(4,18,29,.9))}
+.membro .funcao{letter-spacing:.02em;text-transform:none;font-size:.86rem}
+
+/* FAQ */
+.faq details{border-radius:22px;transition:background .3s,border-color .3s}
+.faq summary{padding:22px 26px;font-size:1.06rem;min-height:56px;align-items:center}
+.faq summary::after,.faq details[open] summary::after{content:"+";font-size:1.6rem;transition:transform .4s var(--e);flex:0 0 auto}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq details p{padding:0 26px 24px}
+.faq details[open] p{animation:faq .5s var(--e)}
+@keyframes faq{from{opacity:0;transform:translateY(-8px)}}
+
+/* ENCERRAMENTO */
+.cta-box{border-radius:42px;padding:clamp(56px,10vw,128px) 24px;border-color:var(--line-2);background:radial-gradient(70% 90% at 50% 130%,rgba(53,208,240,.4),transparent 70%),linear-gradient(160deg,#0a2d47,#04121d)}
+.cta-box h2{font-size:clamp(2.3rem,6vw,4.8rem);letter-spacing:-.04em;line-height:1}
+footer{position:relative;overflow:hidden;border:0;padding:clamp(80px,12vw,150px) 0 48px;background:linear-gradient(180deg,transparent,#02080d 38%)}
+footer .wrap{position:relative;z-index:2}
+.foot-wave{position:absolute;left:0;right:0;top:0;height:70px;overflow:hidden;pointer-events:none}
+.foot-wave svg{width:200%;height:100%;display:block;animation:ond 20s linear infinite}
+.foot-line{font:700 clamp(1.3rem,3vw,2.2rem)/1.2 var(--f-display);letter-spacing:-.02em;color:#fff;max-width:22ch;margin:0 auto 28px}
+.foot-big{position:relative;z-index:1;margin-top:clamp(28px,5vw,60px);text-align:center;user-select:none;pointer-events:none;font:800 clamp(4.4rem,21vw,19rem)/.82 var(--f-display);letter-spacing:-.05em;background:linear-gradient(180deg,rgba(53,208,240,.6),rgba(47,191,143,.03) 88%);-webkit-background-clip:text;background-clip:text;color:transparent}
+
+/* REVEAL: um movimento por seção */
+.js .rv{opacity:0;transition:opacity 1s var(--e),transform 1s var(--e);transition-delay:var(--dl,0s)}
+.js .rv.up{transform:translateY(34px)}
+.js .rv.left{transform:translateX(-44px)}
+.js .rv.scale{transform:scale(.95)}
+.js .rv.depth{transform:perspective(900px) translateY(36px) translateZ(-90px) rotateX(7deg)}
+.js .rv.in{opacity:1;transform:none}
+</style>
+</head>
+<body>
+<a class="skip" href="#conteudo">Ir para o conteúdo</a>
+
+<nav class="top" aria-label="Seções">
+  <div class="wrap">
+    <a class="logo" href="#inicio">
+      <svg width="20" height="26" viewBox="0 0 18 24" aria-hidden="true"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#35d0f0"/><stop offset="1" stop-color="#2fbf8f"/></linearGradient></defs><path d="M9 0C9 0 0 10 0 15a9 9 0 0018 0C18 10 9 0 9 0z" fill="url(#lg)"/></svg>
+      AQUARA
+    </a>
+    <div class="navlinks">
+      <a href="#problema">Problema</a>
+      <a href="#kit">O Kit</a>
+      <a href="#prototipo-3d">Protótipo 3D</a>
+      <a href="#montagem">Montagem</a>
+      <a href="#calculadora">Calculadora</a>
+      <a href="#compras">Compras no ABC</a>
+      <a href="#cronograma">Cronograma</a>
+      <a href="#equipe">Equipe</a>
+      <a href="#faq">FAQ</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ================= HERO ================= -->
+<header class="hero" id="inicio">
+  <canvas id="hero-cv" aria-hidden="true"></canvas><div class="hero-glow" aria-hidden="true"></div>
+  <div class="wrap">
+    <span class="kicker"><i></i>Projeto de inovação social · ODS 6 · Agenda 2030</span>
+    <h1>Água limpa não pode ser <span class="grad">privilégio</span>.</h1>
+    <p class="sub"><strong>AQUARA</strong> é uma solução comunitária de tratamento e filtração de água de poços e minas. O tratamento acontece na porta de casa, montado pela própria comunidade, com o protocolo da OMS e da FUNASA: filtrar primeiro, clorar depois, verificar sempre.</p>
+    <p class="territorio">Parelheiros · Marsilac — extrema Zona Sul de São Paulo</p>
+    <div class="ods-row">
+      <span class="ods"><b style="background:#26BDE2">6</b>Água potável e saneamento · central</span>
+      <span class="ods"><b style="background:#4C9F38">3</b>Saúde e bem-estar</span>
+      <span class="ods"><b style="background:#DD1367">10</b>Redução das desigualdades</span>
+      <span class="ods"><b style="background:#FD9D24">11</b>Cidades sustentáveis</span>
+    </div>
+    <div class="ctas">
+      <a class="btn btn-prim" href="#prototipo-3d">Explorar o protótipo 3D</a>
+      <a class="btn btn-ghost" href="#calculadora">Calcular dosagem</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hstat"><div class="big">R$ 60–75</div><div class="desc">custo por família em série de 15+ kits</div></div>
+      <div class="hstat"><div class="big">R$ 0,01–0,03</div><div class="desc">por dia de água tratada</div></div>
+      <div class="hstat"><div class="big">20 famílias</div><div class="desc">meta do piloto em 90 dias, com 5 multiplicadores</div></div>
+      <div class="hstat"><div class="big">30 min</div><div class="desc">de contato do cloro · residual 0,5–1,0 mg/L</div></div>
+    </div>
+  </div>
+  <div class="wm" aria-hidden="true"><svg id="wm-svg" viewBox="0 0 1200 230" preserveAspectRatio="xMidYMax meet" focusable="false">
+    <defs><linearGradient id="wg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#35d0f0"/><stop offset="1" stop-color="#2fbf8f"/></linearGradient>
+    <clipPath id="wc"><g><animateTransform attributeName="transform" type="translate" from="0 230" to="0 0" dur="4.2s" begin="0.4s" fill="freeze" calcMode="spline" keyTimes="0;1" keySplines=".2 .7 .2 1"/><g><animateTransform attributeName="transform" type="translate" from="0 0" to="-400 0" dur="7s" repeatCount="indefinite"/><path d="M0 90 q100 -28 200 0 t200 0 t200 0 t200 0 t200 0 t200 0 t200 0 t200 0 t200 0 V400 H0z"/></g></g></clipPath></defs>
+    <text class="wm-o" x="600" y="200" text-anchor="middle">AQUARA</text>
+    <text class="wm-f" x="600" y="200" text-anchor="middle" clip-path="url(#wc)">AQUARA</text>
+  </svg></div>
+  <div class="ondas" aria-hidden="true">
+    <svg viewBox="0 0 2880 90" preserveAspectRatio="none"><path d="M0 50 Q 180 15 360 50 T 720 50 T 1080 50 T 1440 50 T 1800 50 T 2160 50 T 2520 50 T 2880 50 V90 H0 Z" fill="rgba(53,208,240,.09)"/></svg>
+  </div>
+  <a class="cue" href="#problema" aria-label="Rolar para a próxima seção"><span aria-hidden="true"></span></a>
+</header>
+
+<main id="conteudo">
+<!-- ================= PROBLEMA ================= -->
+<section id="problema">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">O problema</span>
+      <h2>Água cristalina, água contaminada</h2>
+      <p>Nas chácaras, glebas e loteamentos de Parelheiros e Marsilac, milhares de famílias não recebem água da rede pública. Dependem de poço raso, mina e caminhão-pipa, sem controle de qualidade. O poço fica a poucos metros da fossa, e a água que parece limpa carrega coliformes fecais invisíveis. O resultado se repete todo ano: diarreia e verminose em crianças, idas constantes à UBS e um ciclo de pobreza que começa na caneca.</p>
+    </div>
+    <figure class="glass" aria-hidden="true"><svg viewBox="0 0 220 300"><defs><linearGradient id="gw" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#35d0f0" stop-opacity=".5"/><stop offset="1" stop-color="#0a3a58" stop-opacity=".9"/></linearGradient><clipPath id="gc"><path d="M40 40H180L168 270Q167 282 155 282H65Q53 282 52 270Z"/></clipPath></defs>
+<path d="M40 40H180L168 270Q167 282 155 282H65Q53 282 52 270Z" fill="rgba(255,255,255,.04)" stroke="rgba(190,235,250,.55)" stroke-width="2"/>
+<g clip-path="url(#gc)"><rect x="30" y="86" width="160" height="210" fill="url(#gw)"/><path class="surf" d="M30 86 q20 -10 40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 V110 H30z" fill="rgba(160,235,250,.55)"/><circle class="pt" cx="78" cy="200" r="3.2"/><circle class="pt" cx="100" cy="230" r="2.4"/><circle class="pt" cx="124" cy="180" r="3.6"/><circle class="pt" cx="140" cy="215" r="2.6"/><circle class="pt" cx="92" cy="150" r="2.2"/><circle class="pt" cx="130" cy="140" r="3"/><circle class="pt" cx="110" cy="256" r="3.4"/><circle class="pt" cx="70" cy="246" r="2.2"/><circle class="pt" cx="150" cy="170" r="2.4"/><circle class="pt" cx="104" cy="120" r="2.6"/><circle class="pt" cx="142" cy="250" r="3"/><circle class="pt" cx="84" cy="184" r="2.2"/></g>
+<path d="M52 52L60 260" stroke="rgba(255,255,255,.25)" stroke-width="3" stroke-linecap="round"/></svg></figure>
+    <div class="stats">
+      <div class="stat"><div class="big">15 m</div><div class="desc">Poço raso a menos de 15 m da fossa recebe coliformes fecais</div></div>
+      <div class="stat"><div class="big">R$ 12–20</div><div class="desc">Galão de 20 L: inviável para renda de 1 a 2 salários mínimos</div></div>
+      <div class="stat"><div class="big">R$ 150–300</div><div class="desc">Uma única análise em laboratório privado</div></div>
+      <div class="stat"><div class="big">2×/ano</div><div class="desc">Picos de contaminação: na seca e nas chuvas fortes</div></div>
+    </div>
+    <div class="alerta"><strong>Por que as soluções atuais não resolvem?</strong> A rede não chega e não tem cronograma. O galão é caro. O filtro de vela trata pouco volume. Não existe análise acessível por perto. Falta tecnologia e verificação na mão da família, e é isso que a AQUARA entrega.</div>
+  </div>
+</section>
+
+<!-- ================= KIT ================= -->
+<section id="kit" class="alt">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">A solução</span>
+      <h2>O Kit AQUARA: 4 peças, cerca de R$ 280</h2>
+      <p>Tudo com material de loja de construção, farmácia e loja de piscina do bairro. Nada importado, nada exclusivo.</p>
+    </div>
+    <div class="grid g4">
+      <article class="card"><div class="card-top"><span class="tag">A</span><h3>Clorador de gotejamento</h3></div>
+        <p>Reservatório suspenso que pinga hipoclorito 2,5% na entrada da caixa d'água. A dosagem é calibrada em gotas por minuto: 1 gota/min trata cerca de 75 L/h a 1,0 mg/L.</p><span class="preco">R$ 53–93</span></article>
+      <article class="card"><div class="card-top"><span class="tag">B</span><h3>Filtro bioareia</h3></div>
+        <p>Balde de 20 L com brita, pedrisco e areia fina. Retém a turbidez, e a biocamada da superfície remove bactérias depois de 2 a 3 semanas de uso.</p><span class="preco">R$ 82–138</span></article>
+      <article class="card"><div class="card-top"><span class="tag">C</span><h3>Maleta de análise</h3></div>
+        <p>Teste DPD de cloro (a amostra fica rosa), fita de pH e caneca Secchi de turbidez. São as provas visíveis de que a água está protegida.</p><span class="preco">R$ 76–125</span></article>
+      <article class="card"><div class="card-top"><span class="tag">D</span><h3>Cartilha de operação</h3></div>
+        <p>Manual ilustrado e plastificado: recarga, tabela de gotas, calibração com DPD e manutenção do filtro. É o que mantém o sistema funcionando depois que a equipe sai.</p><span class="preco">R$ 15–25</span></article>
+    </div>
+    <div class="fluxo">
+      <div class="fx"><span class="n">ETAPA 1</span><strong>Captação</strong><span>Água da mina ou do poço segue pelo cano até o filtro</span></div>
+      <div class="fx"><span class="n">ETAPA 2</span><strong>Filtração</strong><span>A bioareia remove a turbidez que consumiria o cloro</span></div>
+      <div class="fx"><span class="n">ETAPA 3</span><strong>Cloração</strong><span>O clorador pinga na entrada da caixa: residual de 0,5–1,0 mg/L</span></div>
+      <div class="fx"><span class="n">ETAPA 4</span><strong>Verificação</strong><span>O teste DPD quinzenal confirma a proteção na torneira</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PROTÓTIPO 3D ================= -->
+<section id="prototipo-3d">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Protótipo 3D</span>
+      <h2>O sistema completo, peça por peça</h2>
+      <p>Fonte → filtro bioareia → clorador → caixa d'água → torneira com amostra DPD. Arraste para girar, use os botões ou Ctrl + roda para aproximar, separe as peças na vista explodida e escolha uma peça para ver função e custo.</p>
+    </div>
+    <div class="p3-layout">
+      <div class="p3-view">
+        <canvas id="p3-cv" aria-label="Modelo 3D interativo do kit AQUARA"></canvas>
+        <div id="p3-labels"></div>
+        <span class="pill" style="left:12px;top:12px">Arraste para girar · toque numa peça</span>
+        <span class="pill" id="p3-vista" style="right:12px;top:12px">zoom 1,00×</span>
+        <div class="zoom-btns"><button type="button" id="p3-zm" aria-label="Afastar">−</button><button type="button" id="p3-zp" aria-label="Aproximar">+</button></div>
+      </div>
+      <aside class="p3-panel">
+        <div class="box">
+          <h4>Peças do kit</h4>
+          <button type="button" class="p3-peca sel" data-p="a"><span class="tag">A</span>Clorador de gotejamento <small>R$ 53–93</small></button>
+          <button type="button" class="p3-peca" data-p="b"><span class="tag">B</span>Filtro bioareia <small>R$ 82–138</small></button>
+          <button type="button" class="p3-peca" data-p="c"><span class="tag">C</span>Maleta de análise <small>R$ 76–125</small></button>
+          <button type="button" class="p3-peca" data-p="d"><span class="tag">D</span>Cartilha de operação <small>R$ 15–25</small></button>
+          <button type="button" class="p3-peca" data-p="e"><span class="tag">E</span>Instalação <small>da família</small></button>
+        </div>
+        <div class="box" id="p3-info" aria-live="polite"></div>
+        <div class="box">
+          <h4>Visão</h4>
+          <label class="tgl"><span>Rotação automática</span><input type="checkbox" id="p3-rot" checked></label>
+          <label class="tgl"><span>Vista explodida</span><input type="checkbox" id="p3-expl"></label>
+          <label class="tgl"><span>Corte do filtro (camadas)</span><input type="checkbox" id="p3-corte" checked></label>
+          <label class="tgl"><span>Etiquetas com custo</span><input type="checkbox" id="p3-etq" checked></label>
+          <label class="tgl"><span>Animação de gotas e fluxo</span><input type="checkbox" id="p3-anim" checked></label>
+          <button type="button" class="btn-mini" id="p3-re">Recentrar vista</button>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- ================= MONTAGEM ================= -->
+<section id="montagem" class="alt">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Fabricação</span>
+      <h2>Como montar, passo a passo</h2>
+      <p>Qualquer pessoa monta o kit com ferramentas básicas. O mutirão de instalação faz parte do projeto: a comunidade fabrica, calibra e assume o próprio sistema.</p>
+    </div>
+    <div class="tabs" role="tablist" aria-label="Partes do kit">
+      <button type="button" class="tab-btn" role="tab" aria-selected="true" aria-controls="t-clorador" id="tb-clorador">A · Clorador</button>
+      <button type="button" class="tab-btn" role="tab" aria-selected="false" aria-controls="t-filtro" id="tb-filtro">B · Filtro bioareia</button>
+      <button type="button" class="tab-btn" role="tab" aria-selected="false" aria-controls="t-analise" id="tb-analise">C · Maleta de análise</button>
+    </div>
+    <div class="tab-corpo">
+      <div role="tabpanel" id="t-clorador" aria-labelledby="tb-clorador">
+        <div class="passo-item"><span class="n">1</span><p><strong>Escolha o reservatório.</strong> Use um recipiente opaco de 2 a 5 L (galão de água mineral reaproveitado ou tubo PVC 100 mm com dois caps, como no protótipo). Hipoclorito perde força na luz e frasco transparente cria alga na linha.</p></div>
+        <div class="passo-item"><span class="n">2</span><p><strong>Faça a saída.</strong> Fure a tampa ou o cap inferior (broca 8 mm) e vede a passagem da mangueira com cola PVC ou epóxi. Deixe curar 24 h.</p></div>
+        <div class="passo-item"><span class="n">3</span><p><strong>Instale o regulador.</strong> Conecte um <strong>equipo de soro macrogotas com pinça rolete</strong> (farmácia, R$ 2–6): ele já vem com tubo e escala de 20 gotas/mL. A alternativa é a torneirinha de registro de aquário, mais cara e menos precisa.</p></div>
+        <div class="passo-item"><span class="n">4</span><p><strong>Suspenda o clorador</strong> em mão francesa galvanizada fixada em alvenaria, 30 a 50 cm acima da entrada da caixa. A ponta do equipo pinga dentro do fluxo que entra (funil, calha ou cano).</p></div>
+        <div class="passo-item"><span class="n">5</span><p><strong>Encha com 1,5 L de hipoclorito 2,5% sem perfume</strong> e ajuste a pinça pela tabela abaixo. Depois de 30 min de caixa cheia, confirme com o teste DPD.</p></div>
+        <div class="alerta verde"><strong>Tabela de calibração (hipoclorito 2,5%, dose-alvo 1,0 mg/L):</strong> <span class="num">2 gotas/min → 150 L/h · 4 → 300 L/h · 6 → 450 L/h · 8 → 600 L/h.</span> Regra de bolso: 1 gota por minuto trata cerca de 75 L/h. Residual abaixo de 0,5? Abra a pinça. Acima de 2,0? Feche.</div>
+      </div>
+      <div role="tabpanel" id="t-filtro" aria-labelledby="tb-filtro" hidden>
+        <div class="passo-item"><span class="n">1</span><p><strong>Use balde reforçado de 20 L.</strong> Ele aguenta cerca de 40 kg de areia molhada; balde fino de tinta trinca no fundo. Fure a 3 cm do fundo (broca 22–25 mm), instale a torneira com anel de borracha e fita veda-rosca e cole uma tela de nylon por dentro.</p></div>
+        <div class="passo-item"><span class="n">2</span><p><strong>Lave brita e areia</strong> até a água sair clara. Peneire a areia fina na malha de cerca de 0,5 mm: ela é o coração do filtro.</p></div>
+        <div class="passo-item"><span class="n">3</span><p><strong>Monte as camadas com o balde meio cheio de água</strong> (evita bolsas de ar), de baixo para cima: 4 cm de brita · 4 cm de pedrisco · 5 cm de areia grossa · cerca de 22 cm de areia fina.</p></div>
+        <div class="passo-item"><span class="n">4</span><p><strong>Mantenha 4 a 5 cm de água acima da areia.</strong> A biocamada vive ali e a areia nunca pode secar. Apoie o prato difusor sobre a superfície.</p></div>
+        <div class="passo-item"><span class="n">5</span><p><strong>Condicione o filtro:</strong> passe 4 a 5 baldes antes do primeiro uso. A maturação completa leva 2 a 3 semanas de uso diário. Use um segundo balde como decantação da água bruta.</p></div>
+        <div class="alerta"><strong>Limite técnico:</strong> o modelo oficial CAWST usa coluna de areia de cerca de 50 cm; o balde de 20 L é a versão didática do piloto. Sozinho, o filtro não garante potabilidade. Por isso o protocolo é filtrar, clorar e verificar.</div>
+      </div>
+      <div role="tabpanel" id="t-analise" aria-labelledby="tb-analise" hidden>
+        <div class="passo-item"><span class="n">1</span><p><strong>Cloro livre (DPD):</strong> encha o frasco com a amostra, adicione o reagente, agite e compare o tom de rosa com a escala. Alvo: <strong>0,5–1,0 mg/L</strong> (aceitável até 2,0). Exija DPD: estojos de ortotolidina ficam amarelos e não medem cloro livre.</p></div>
+        <div class="passo-item"><span class="n">2</span><p><strong>pH:</strong> mergulhe a fita por 2 s e compare com a tabela. Faixa de potabilidade: <strong>6,0–9,5</strong>.</p></div>
+        <div class="passo-item"><span class="n">3</span><p><strong>Turbidez (Secchi caseiro):</strong> pinte um disco com quadrantes pretos e brancos (EVA ou papelão plastificado) e use no fundo de uma caneca graduada transparente. Meça a profundidade em que o desenho some, antes e depois do filtro.</p></div>
+        <div class="passo-item"><span class="n">4</span><p><strong>Caderno de campo:</strong> cada medição vira uma linha (data, família, residual, pH, observações). Esse registro depois vira dossiê e pleito público por ampliação da rede.</p></div>
+        <div class="alerta verde"><strong>Dica para a apresentação:</strong> faça o teste DPD ao vivo com duas amostras. A sem cloro fica incolor; a tratada fica rosa.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CALCULADORA ================= -->
+<section id="calculadora">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Ferramentas</span>
+      <h2>Calculadora de dosagem</h2>
+      <p>Quanto hipoclorito usar em qualquer volume, quantas gotas por minuto ajustar no clorador e como diluir o hipoclorito 12% para 2,5%.</p>
+    </div>
+    <div class="calc">
+      <h3>Dose para um volume de água</h3>
+      <p class="lead">Ajuste volume, concentração e dose-alvo; os resultados atualizam na hora.</p>
+      <div class="campos">
+        <div><label for="c-vol">Volume de água (litros)</label><input type="number" id="c-vol" value="1000" min="1" inputmode="decimal"></div>
+        <div><label for="c-conc">Concentração do produto</label>
+          <select id="c-conc"><option value="2.5" selected>2,5% (água sanitária pura)</option><option value="2">2,0%</option><option value="1">1,0% (solução diluída)</option></select></div>
+        <div><label for="c-dose">Dose-alvo de cloro</label>
+          <select id="c-dose"><option value="0.5">0,5 mg/L (água já filtrada)</option><option value="1" selected>1,0 mg/L (recomendado)</option><option value="2">2,0 mg/L (água mais turva)</option><option value="2.5">2,5 mg/L (balde: 2 gotas/L, FUNASA)</option></select></div>
+      </div>
+      <div class="res">
+        <div><div class="val" id="c-ml">40 mL</div><div class="rot">do produto</div></div>
+        <div><div class="val" id="c-gotas">800 gotas</div><div class="rot" id="c-gotas-sub">≈ 2,7 colheres de sopa</div></div>
+        <div><div class="val">30 min</div><div class="rot">de espera antes de beber</div></div>
+        <div><div class="val" id="c-custo">R$ 0,32</div><div class="rot">custo do tratamento</div></div>
+      </div>
+      <p class="aviso">Use somente hipoclorito de sódio <strong>sem perfume, corante ou tensoativo</strong>. Água muito turva: filtre primeiro. Confirme sempre com o teste DPD. Preço de referência: R$ 8/L de solução 2,5%. 1 gota ≈ 0,05 mL.</p>
+
+      <div class="calc-bloco">
+        <h3>Calibrador do gotejamento</h3>
+        <p class="lead">Quantas gotas por minuto pingar e quanto dura uma recarga de 1,5 L a 2,5%.</p>
+        <div class="campos">
+          <div><label for="c-vazao">Vazão que enche a caixa: <strong class="num" id="c-vazao-txt">300 L/h</strong></label><input type="range" id="c-vazao" min="50" max="1000" step="25" value="300"></div>
+          <div><label for="c-consumo">Consumo da família: <strong class="num" id="c-consumo-txt">500 L/dia</strong></label><input type="range" id="c-consumo" min="100" max="2000" step="50" value="500"></div>
+        </div>
+        <div class="res">
+          <div><div class="val" id="c-gpm">4 gotas/min</div><div class="rot">ajuste na pinça do equipo</div></div>
+          <div><div class="val" id="c-tratados">37.500 L</div><div class="rot">tratados por recarga a 1,0 mg/L</div></div>
+          <div><div class="val" id="c-dias">75 dias</div><div class="rot">duração teórica da recarga</div></div>
+        </div>
+        <p class="aviso">O hipoclorito perde força com calor e tempo. Mesmo que a recarga dure mais no papel, troque a solução a cada 4 a 6 semanas e confira o residual com DPD a cada 15 dias.</p>
+      </div>
+
+      <div class="calc-bloco">
+        <h3>Diluir hipoclorito 12% para 2,5%</h3>
+        <p class="lead">O galão de 12% rende cerca de 4,8 vezes mais e baixa o custo por litro útil.</p>
+        <div class="campos">
+          <div><label for="c-dil">Quanto de solução 2,5% você quer (litros)</label><input type="number" id="c-dil" value="1.5" min="0.1" step="0.1" inputmode="decimal"></div>
+        </div>
+        <div class="res">
+          <div><div class="val" id="c-dil-h">313 mL</div><div class="rot">de hipoclorito 12%</div></div>
+          <div><div class="val" id="c-dil-a">1.188 mL</div><div class="rot">de água limpa</div></div>
+        </div>
+        <p class="aviso">Coloque o hipoclorito <strong>na água</strong>, nunca o contrário, em lugar ventilado, com luva e óculos. Guarde em frasco opaco com a etiqueta “NÃO POTÁVEL – HIPOCLORITO” e teste cada lote com DPD antes de usar.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= COMPRAS NO ABC ================= -->
+<section id="compras" class="alt">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Guia de compras · out/2026</span>
+      <h2>Onde comprar no ABC pagando menos</h2>
+      <p>Não existe “seção kit AQUARA” em loja nenhuma. O kit é cerca de 80% material de construção, 15% material de piscina e farmácia e 5% aquarismo. Comprar tudo em loja de aquário custa de 3 a 5 vezes mais pelas mesmas funções. A regra: construção é o corpo do kit; piscina e química fazem a dosagem e a análise; farmácia faz o gotejamento; internet só para o que não existe em loja física.</p>
+    </div>
+
+    <div class="grid g3">
+      <article class="card"><h3>Depósito de construção</h3><p>Baldes, PVC, conexões, torneira, areia, pedrisco, suporte e EPI.</p>
+        <ul><li>Copafer: Av. dos Estados, 4555, Vila Metalúrgica, Santo André</li><li>Depósito Estrelamar: Av. São Bernardo do Campo, 250, Vila Luzita, SA</li><li>Telhanorte: Av. Pereira Barreto, 1277, SA</li><li>Leroy Merlin: R. Fuad Mussa Cheid, 190, Planalto, SBC · unidade São Caetano</li><li>Rede Casa Grande</li></ul></article>
+      <article class="card"><h3>Farmácia de bairro</h3><p>Equipo de soro macrogotas com pinça rolete (R$ 1,70–5,50): o regulador de gotejamento mais barato e preciso do kit.</p>
+        <ul><li>Drogaria São Paulo, Drogasil, Pacheco (qualquer unidade)</li></ul></article>
+      <article class="card"><h3>Loja de piscina</h3><p>Estojo e reagente DPD, fitas de pH, hipoclorito 12% em galão.</p>
+        <ul><li>Nado Azul: Av. Dom Pedro I, 465, Vila América, SA</li><li>Pic Piscinas: Av. Robert Kennedy, 3188, Assunção, SBC</li><li>Bompic (Diadema)</li></ul></article>
+      <article class="card"><h3>Distribuidora de limpeza</h3><p>Hipoclorito de sódio 12% em galão de 5 L: o cloro ativo mais barato da região.</p>
+        <ul><li>Medlimp: R. Doze de Outubro, 450, Canhema, Diadema</li><li>Distribuidoras de bairro</li></ul></article>
+      <article class="card"><h3>Atacarejo</h3><p>Galões, água sanitária, luvas e baldes de reserva.</p>
+        <ul><li>Assaí, Atacadão e Roldão (unidades em SA, SBC e Diadema)</li></ul></article>
+      <article class="card"><h3>Internet</h3><p>Válvula de agulha (opcional), proveta, fitas de pH, maleta e kit de baldes reforçados, de 20% a 40% mais baratos com frete grátis.</p>
+        <ul><li>Mercado Livre ou Shopee; prefira anúncios “Enviado pelo Mercado Livre”</li></ul></article>
+    </div>
+
+    <details class="mais">
+      <summary>Lojas de aquarismo no ABC (só para peça específica de aquário)</summary>
+      <div><p style="color:var(--ink-2);font-size:.9rem"><strong>Santo André:</strong> ABC Fish (Av. Martim Francisco, 319), Shop Fish (R. Monte Casseros, 117), Mr Fish (Praça Almeida Júnior, 65), Kakareku's (Av. Dom Pedro I, 3259), Água Show (R. Gertrudes de Lima, 721), Aquabc (R. Oratório, 2721), Ocean Glass (Av. Gago Coutinho, 486), Petz (Av. Ramiro Colleoni, 355).<br><strong>São Bernardo:</strong> Brasil Caridina (R. Silva Jardim, 530, Centro), Aquapet (R. Jurubatuba, 1123, Centro), Magnusson (Av. Pedro Costa, 20, Assunção), World Fish (R. Frei Gaspar, 581).</p></div>
+    </details>
+
+    <h3 class="sub">Lista de compras, peça por peça</h3>
+    <div class="tw"><table>
+      <thead><tr><th>Item</th><th>Onde achar</th><th>Preço-alvo</th><th>Dica que economiza ou dá resistência</th></tr></thead>
+      <tbody>
+        <tr><td colspan="4" style="color:var(--aqua);font-weight:800;background:rgba(53,208,240,.05)">A · Clorador de gotejamento</td></tr>
+        <tr><td>Reservatório opaco 5–20 L</td><td>Atacarejo / depósito (galão de água 5 L, bombona PEAD)</td><td class="pr">R$ 0–35</td><td>Reaproveitar galão sai de graça. Só recipiente opaco.</td></tr>
+        <tr><td>Regulador de gotejamento</td><td>Farmácia (equipo de soro macrogotas)</td><td class="pr">R$ 2–6</td><td>Melhor custo-benefício do kit: ajuste fino, 1,5 m de tubo e 20 gotas/mL.</td></tr>
+        <tr><td>Mangueira + vedação</td><td>Depósito (mangueira cristal 1/4", veda-rosca)</td><td class="pr">R$ 10–25</td><td>Mangueira cristal de PVC; a de jardim racha no sol.</td></tr>
+        <tr><td>Suporte suspenso</td><td>Depósito (mão francesa galvanizada, abraçadeira U, bucha 8 mm)</td><td class="pr">R$ 15–35</td><td>Galvanizada não enferruja. Fixe em alvenaria, nunca em drywall.</td></tr>
+        <tr><td colspan="4" style="color:var(--aqua);font-weight:800;background:rgba(53,208,240,.05)">B · Filtro bioareia</td></tr>
+        <tr><td>2 baldes reforçados 20 L</td><td>Depósito / internet</td><td class="pr">R$ 23–35 cada</td><td>Um é o filtro, o outro decantação. Parede grossa aguenta o peso.</td></tr>
+        <tr><td>Pedrisco / brita nº 0 (20 kg)</td><td>Depósito</td><td class="pr">R$ 8–18</td><td>Nunca substrato de aquário: custa 10 a 20 vezes mais.</td></tr>
+        <tr><td>Areia grossa e fina lavadas (20 kg)</td><td>Depósito</td><td class="pr">R$ 6–15 cada</td><td>Lave de novo em casa até a água sair clara.</td></tr>
+        <tr><td>Torneira + conexões</td><td>Depósito (bica, luva, adaptador, cola PVC)</td><td class="pr">R$ 25–50</td><td>Aperte com a mão mais 1/4 de volta. Deixe um extravasor de 20 mm.</td></tr>
+        <tr><td colspan="4" style="color:var(--aqua);font-weight:800;background:rgba(53,208,240,.05)">C · Maleta de análise</td></tr>
+        <tr><td>Teste de cloro DPD + pH</td><td>Loja de piscina</td><td class="pr">R$ 30–65</td><td>Exija DPD. Refil de 25 testes por cerca de R$ 45.</td></tr>
+        <tr><td>Fitas de pH 0–14 (100)</td><td>Internet / loja de piscina</td><td class="pr">R$ 25–45</td><td>Dura anos. Guarde longe de calor e umidade.</td></tr>
+        <tr><td>Caneca ou tubo Secchi</td><td>Depósito, papelaria ou internet</td><td class="pr">R$ 10–55</td><td>Caneca graduada de 1 L resolve a rotina; proveta fica para a segunda fase.</td></tr>
+        <tr><td>Maleta com trava</td><td>Ferragens ou internet</td><td class="pr">R$ 25–60</td><td>Protege reagentes da luz e da umidade. Coloque um sachê de sílica.</td></tr>
+        <tr><td colspan="4" style="color:var(--aqua);font-weight:800;background:rgba(53,208,240,.05)">D · Cartilha e proteção</td></tr>
+        <tr><td>Cartilha impressa e plastificada</td><td>Gráfica de bairro</td><td class="pr">R$ 10–30</td><td>Plastificada aguenta mão molhada e respingo de cloro.</td></tr>
+        <tr><td>EPI mínimo</td><td>Depósito / atacarejo / farmácia</td><td class="pr">R$ 25–50</td><td>Luva nitrila (2 pares), óculos incolor e avental plástico.</td></tr>
+      </tbody>
+    </table></div>
+
+    <h3 class="sub">O consumível que decide a conta: hipoclorito</h3>
+    <div class="tw"><table>
+      <thead><tr><th>Produto</th><th>Onde</th><th>Preço</th><th>Rende (equiv. 2,5%)</th><th>Custo por litro útil</th></tr></thead>
+      <tbody>
+        <tr><td>Água sanitária 5 L (~2,5%)</td><td>Atacarejo</td><td class="pr">R$ 10–20</td><td class="pr">5 L</td><td class="pr">R$ 2,00–4,00</td></tr>
+        <tr class="total"><td>Hipoclorito de sódio 12%, galão 5 L</td><td>Distribuidora / piscina / internet</td><td class="pr">R$ 27–67</td><td class="pr">~24 L</td><td class="pr">R$ 1,10–2,80</td></tr>
+      </tbody>
+    </table></div>
+
+    <div class="grid g2" style="margin-top:28px">
+      <article class="card"><h3>Rota de compras (1 dia ou 2 saídas)</h3>
+        <p><strong>Saída 1, Santo André:</strong> Copafer para baldes, PVC, torneira, areia, pedrisco, mão francesa e EPI → Nado Azul para DPD, fitas de pH e galão de hipoclorito → farmácia no caminho para o equipo de soro.</p>
+        <p><strong>Saída 2, São Bernardo:</strong> Leroy Merlin para construção e EPI + Pic Piscinas para química e análise. Faltou peça de aquário: Brasil Caridina ou Aquapet, no Centro.</p>
+        <p><strong>Internet:</strong> um pedido único depois da saída 1, para não comprar o que o depósito já tinha. <strong>Gráfica:</strong> cartilha + 2 plastificações.</p></article>
+      <article class="card"><h3>Onde não gastar</h3>
+        <ul>
+          <li>Substrato ou brita “de aquário”: 10 a 20 vezes o preço da areia de depósito.</li>
+          <li>Mangueira de jardim na linha de água: racha e cria biofilme.</li>
+          <li>Balde fino de tinta como corpo do filtro: trinca com o peso.</li>
+          <li>Estojo de cloro com ortotolidina: mede outra coisa.</li>
+          <li>Frasco transparente para hipoclorito: perde concentração e cria alga.</li>
+          <li>Válvula de agulha de CO₂ (R$ 90–600) quando o equipo de R$ 3 faz o mesmo ajuste.</li>
+        </ul></article>
+    </div>
+
+    <h3 class="sub">Orçamento</h3>
+    <div class="tw"><table>
+      <thead><tr><th>Cenário</th><th>Valor</th></tr></thead>
+      <tbody>
+        <tr><td>ABC econômico (galão reaproveitado, mídia de depósito, equipo de soro, DPD de piscina)</td><td class="pr">R$ 180–260</td></tr>
+        <tr><td>ABC “tudo novo e reforçado” (2 baldes, suporte galvanizado, proveta, maleta, DPD completo)</td><td class="pr">R$ 280–380</td></tr>
+        <tr><td>Extras recomendados (EPI + 1º galão de 12% + refil DPD)</td><td class="pr">R$ 90–140</td></tr>
+        <tr class="total"><td>Investimento inicial total</td><td class="pr">R$ 270–460</td></tr>
+        <tr><td>Kit-demonstrador da proposta original (PVC + registro de aquário)</td><td class="pr">R$ 226–381</td></tr>
+        <tr><td>Replicação por família (série de 15+)</td><td class="pr">R$ 60–75</td></tr>
+        <tr><td>Insumo contínuo (hipoclorito)</td><td class="pr">R$ 4–9/mês</td></tr>
+        <tr><td>Comparação: galão de 20 L entregue</td><td class="pr">R$ 12–20 a cada 2 dias</td></tr>
+      </tbody>
+    </table></div>
+
+    <details class="mais">
+      <summary>Lista de materiais da versão original (PVC 100 mm + registro de aquário)</summary>
+      <div>
+        <div class="tw"><table>
+          <thead><tr><th>Material</th><th>Qtd.</th><th>Preço est.</th></tr></thead>
+          <tbody>
+            <tr><td>Tubo PVC soldável 100 mm (30 cm)</td><td>0,5 m</td><td class="pr">R$ 10–18</td></tr>
+            <tr><td>Cap PVC 100 mm</td><td>2</td><td class="pr">R$ 10–16</td></tr>
+            <tr><td>Cola PVC 100 g + lixa</td><td>1</td><td class="pr">R$ 10–14</td></tr>
+            <tr><td>Torneirinha de aquário com registro</td><td>1</td><td class="pr">R$ 8–18</td></tr>
+            <tr><td>Mangueira de ar 1/4" (2 m)</td><td>1</td><td class="pr">R$ 5–8</td></tr>
+            <tr><td>Abraçadeiras + arame</td><td>4</td><td class="pr">R$ 6–10</td></tr>
+            <tr><td>Hipoclorito 2,5% puro (1 L)</td><td>1</td><td class="pr">R$ 4–9</td></tr>
+            <tr class="total"><td>Subtotal clorador</td><td></td><td class="pr">R$ 53–93</td></tr>
+            <tr><td>Balde 20 L com tampa</td><td>1</td><td class="pr">R$ 25–40</td></tr>
+            <tr><td>Areia lavada fina (20 kg)</td><td>1</td><td class="pr">R$ 15–25</td></tr>
+            <tr><td>Brita 1 + pedrisco</td><td>2</td><td class="pr">R$ 24–40</td></tr>
+            <tr><td>Torneira plástica 1/2" ou 3/4"</td><td>1</td><td class="pr">R$ 5–10</td></tr>
+            <tr><td>Peneira fina (≈ 0,5 mm)</td><td>1</td><td class="pr">R$ 10–18</td></tr>
+            <tr><td>Prato difusor + tela de nylon</td><td>1</td><td class="pr">R$ 3–6</td></tr>
+            <tr class="total"><td>Subtotal filtro</td><td></td><td class="pr">R$ 82–138</td></tr>
+            <tr><td>Estojo DPD (50+ testes), fita de pH, Secchi, seringas, cartilhas</td><td>—</td><td class="pr">R$ 91–160</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+    </details>
+
+    <h3 class="sub">Checklist de compras <span class="prog" id="ck-prog"></span></h3>
+    <div class="card"><div class="check" id="checklist">
+      <label><input type="checkbox" id="ck1"><span>2 baldes reforçados 20 L</span></label>
+      <label><input type="checkbox" id="ck2"><span>Pedrisco / brita nº 0 (20 kg)</span></label>
+      <label><input type="checkbox" id="ck3"><span>Areia grossa e areia fina lavadas</span></label>
+      <label><input type="checkbox" id="ck4"><span>Torneira com anel de vedação + veda-rosca</span></label>
+      <label><input type="checkbox" id="ck5"><span>Conexões PVC, cola, mangueira cristal 1/4" e 20 mm</span></label>
+      <label><input type="checkbox" id="ck6"><span>Reservatório opaco 5–20 L</span></label>
+      <label><input type="checkbox" id="ck7"><span>Equipo de soro macrogotas com pinça rolete</span></label>
+      <label><input type="checkbox" id="ck8"><span>Mão francesa galvanizada + abraçadeira U + bucha</span></label>
+      <label><input type="checkbox" id="ck9"><span>Estojo DPD de cloro + reagente de pH</span></label>
+      <label><input type="checkbox" id="ck10"><span>Fitas de pH 0–14 (100 tiras)</span></label>
+      <label><input type="checkbox" id="ck11"><span>Caneca graduada + disco Secchi caseiro</span></label>
+      <label><input type="checkbox" id="ck12"><span>Hipoclorito de sódio 12% (galão 5 L)</span></label>
+      <label><input type="checkbox" id="ck13"><span>Luva, óculos de proteção e avental</span></label>
+      <label><input type="checkbox" id="ck14"><span>Cartilha impressa e plastificada</span></label>
+      <label><input type="checkbox" id="ck15"><span>Maleta com trava + sachê de sílica</span></label>
+    </div></div>
+    <p class="cap" style="text-align:left">Preços-alvo conferidos em out/2026 em anúncios e lojas do Grande ABC. Estoque e preço variam: confirme por telefone ou WhatsApp antes de sair. Lojas citadas são referência de mercado, não indicação comercial.</p>
+  </div>
+</section>
+
+<!-- ================= CRONOGRAMA ================= -->
+<section id="cronograma">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Execução</span>
+      <h2>Cronograma do piloto: 90 dias</h2>
+    </div>
+    <div class="timeline">
+      <div class="tl"><div class="q">Semanas 1–2 · Preparação</div><div class="o">Compras, parceria com a associação de moradores, mapeamento das 20 famílias e das fontes de água.</div></div>
+      <div class="tl"><div class="q">Semana 3 · Montagem</div><div class="o">Montagem do kit-demonstrador, testes internos e curva de calibração do gotejamento.</div></div>
+      <div class="tl"><div class="q">Semana 4 · Oficina</div><div class="o">Mutirão de montagem com a comunidade e formação dos 5 multiplicadores locais.</div></div>
+      <div class="tl"><div class="q">Semanas 5–8 · Instalação</div><div class="o">Instalação dos 20 cloradores e dia de teste de águas: 40 amostras com DPD, pH e Secchi.</div></div>
+      <div class="tl"><div class="q">Semanas 9–12 · Consolidação</div><div class="o">Acompanhamento quinzenal, ajustes de dosagem e relatório de impacto com a apresentação final.</div></div>
+    </div>
+    <div class="tw"><table>
+      <thead><tr><th>Indicador</th><th>Meta</th><th>Como medir</th></tr></thead>
+      <tbody>
+        <tr><td>Famílias com clorador ativo</td><td class="pr">20 em 90 dias</td><td>Caderno de campo do multiplicador</td></tr>
+        <tr><td>Amostras com residual 0,2–2,0 mg/L</td><td class="pr">≥ 80%</td><td>Teste DPD quinzenal</td></tr>
+        <tr><td>Turbidez pós-filtro (Secchi)</td><td class="pr">desenho visível ≥ 15 cm</td><td>Caneca Secchi</td></tr>
+        <tr><td>Multiplicadores formados</td><td class="pr">5</td><td>Lista de presença da oficina</td></tr>
+        <tr><td>Queixas de diarreia (autorrelato)</td><td class="pr">redução ≥ 50%</td><td>Entrevista antes e depois</td></tr>
+      </tbody>
+    </table></div>
+
+    <h3 class="sub">Segurança e limites do kit</h3>
+    <div class="grid g2">
+      <div class="alerta"><strong>Produto certo:</strong> somente hipoclorito de sódio sem perfume, corante ou tensoativo. Águas sanitárias perfumadas ou “multiuso” estão fora do projeto.</div>
+      <div class="alerta"><strong>Nunca misture</strong> hipoclorito com ácido muriático, vinagre, limpa-pedra, desinfetante ou amoníaco: libera gás tóxico. Nunca reutilize embalagem de refrigerante ou alimento para cloro.</div>
+      <div class="alerta amber"><strong>Limite do residual:</strong> a OMS considera seguro até 5,0 mg/L de cloro livre. O projeto trabalha com 0,5–1,0 mg/L e máximo de 2,0.</div>
+      <div class="alerta"><strong>O que o kit não faz:</strong> não remove metais, agrotóxicos ou nitrato e não garante ausência de vírus e protozoários (o criptosporídio resiste ao cloro). Não é atestado de potabilidade: consumo continuado pede análise laboratorial e acompanhamento da Vigilância Sanitária.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= EQUIPE ================= -->
+<section id="equipe" class="alt">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Quem faz</span>
+      <h2>Equipe AQUARA</h2>
+      <p>Cada frente do projeto tem um responsável.</p>
+    </div>
+    <div class="grid g3">
+      <article class="card membro"><div class="avatar">AG</div><span class="funcao">Coordenação geral</span><div class="nome">Alexandre Gabriel Santos da Costa</div><p>Cronograma, relação com a associação de moradores e apresentação final.</p></article>
+      <article class="card membro"><div class="avatar">EP</div><span class="funcao">Engenharia do kit</span><div class="nome">Enzo Pascon Catalani</div><p>Projeto e montagem do clorador e do filtro bioareia, protótipos 2D e 3D.</p></article>
+      <article class="card membro"><div class="avatar">FB</div><span class="funcao">Qualidade da água</span><div class="nome">Felipe Braga da Silva</div><p>Testes DPD, pH e Secchi, curva de calibração e caderno de campo.</p></article>
+      <article class="card membro"><div class="avatar">FS</div><span class="funcao">Mobilização comunitária</span><div class="nome">Felype Da Silva Oliveira Dos Santos</div><p>Mapeamento das 20 famílias, mutirão e formação dos multiplicadores.</p></article>
+      <article class="card membro"><div class="avatar">MC</div><span class="funcao">Compras e orçamento</span><div class="nome">Murillo Cesar Campos</div><p>Cotação no ABC, rota de compras e controle dos gastos do piloto.</p></article>
+      <article class="card membro"><div class="avatar">RG</div><span class="funcao">Comunicação</span><div class="nome">Richard Galan Silva</div><p>Cartilha ilustrada, site do projeto e relatório de impacto.</p></article>
+    </div>
+    <h3 class="sub">Parceiros previstos</h3>
+    <div class="grid g3">
+      <div class="card"><h3>Associação de moradores</h3><p>Ponte com as famílias, espaço para a oficina e indicação dos multiplicadores.</p></div>
+      <div class="card"><h3>5 multiplicadores locais</h3><p>Um “fiscal da água” por núcleo, com a maleta de análise e visita mensal de recarga e teste.</p></div>
+      <div class="card"><h3>UBS e Vigilância Sanitária</h3><p>Acompanhamento de casos de diarreia e destino das amostras que precisarem de laboratório.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FAQ ================= -->
+<section id="faq">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Dúvidas</span>
+      <h2>Perguntas frequentes</h2>
+    </div>
+    <div class="faq">
+      <details><summary>A água clorada faz mal à saúde?</summary><p>Não, na dosagem correta. O residual de 0,5–1,0 mg/L é o mesmo padrão da água da rede pública no Brasil. A OMS considera seguro até 5,0 mg/L; o projeto fica de 5 a 10 vezes abaixo disso.</p></details>
+      <details><summary>Por que não usar só o filtro de areia?</summary><p>A filtração retém turbidez e boa parte das bactérias, mas não garante 100%, principalmente nas primeiras 2 a 3 semanas, antes de a biocamada amadurecer. O cloro deixa uma barreira residual que continua protegendo o balde, a moringa e o copo. Um complementa o outro.</p></details>
+      <details><summary>Quanto tempo dura o hipoclorito no clorador?</summary><p>Uma recarga de 1,5 L a 2,5% trata cerca de 37.500 L a 1,0 mg/L. Para uma família que usa 500 L por dia, isso daria uns 75 dias, mas o hipoclorito perde força com calor e tempo. Por isso a recomendação é trocar a solução a cada 4 a 6 semanas e conferir o residual com DPD a cada 15 dias. A calculadora estima o seu caso.</p></details>
+      <details><summary>Por que equipo de soro em vez de registro de aquário?</summary><p>O equipo macrogotas custa de R$ 2 a R$ 6 na farmácia, já vem com 1,5 m de tubo e tem escala conhecida de 20 gotas por mL. A pinça rolete dá um ajuste fino de gotas por minuto. O registro de aquário funciona, mas custa mais e é menos preciso.</p></details>
+      <details><summary>Vale a pena comprar hipoclorito 12%?</summary><p>Sim, se houver cuidado na diluição. Um galão de 5 L a 12% rende cerca de 24 L de solução 2,5% e reduz o custo por litro útil para R$ 1,10–2,80. A proporção é 1 parte de 12% para 3,8 partes de água, sempre adicionando o hipoclorito na água, com luva e óculos. Sem diluição, a água sanitária 2,5% do atacarejo é o caminho mais simples.</p></details>
+      <details><summary>E se a família não tiver caixa d'água?</summary><p>O protocolo por balde funciona igual: 2 gotas de hipoclorito 2,5% por litro, esperar 30 minutos e consumir. A calculadora mostra a medida para qualquer volume, inclusive em colheres.</p></details>
+      <details><summary>O kit substitui a análise de laboratório?</summary><p>Não. Ele reduz turbidez e carga microbiológica e deixa a proteção visível, mas não remove metais, agrotóxicos ou nitrato e não elimina todos os protozoários. Se a cor, o cheiro ou o sabor da água mudarem de repente, suspenda o consumo e procure a UBS ou a Vigilância Sanitária.</p></details>
+      <details><summary>Como o projeto se sustenta depois que a equipe sai?</summary><p>Cada núcleo de 20 famílias elege um multiplicador, que recebe a maleta de análise e faz uma visita mensal de recarga e teste. Pode cobrar R$ 10 por visita, o que paga o insumo e o tempo. O registro de residual das famílias vira pleito protocolado de ampliação da rede: pressão com dados.</p></details>
+      <details><summary>Onde compro as peças no ABC?</summary><p>Construção (Copafer, Leroy Merlin, Telhanorte) para o corpo do kit; loja de piscina (Nado Azul, Pic Piscinas) para DPD e hipoclorito; farmácia para o equipo de soro. O guia completo, com rota e checklist, está na seção Compras no ABC.</p></details>
+    </div>
+  </div>
+</section>
+
+<section id="contato" class="alt">
+  <div class="wrap">
+    <div class="cta-box">
+      <h2>Leve a AQUARA para o seu bairro</h2>
+      <p>Explore o protótipo 3D e use o guia de compras para montar o primeiro kit com a comunidade.</p>
+      <div class="ctas" style="justify-content:center">
+        <a class="btn btn-prim" href="#prototipo-3d">Protótipo 3D</a>
+        <a class="btn btn-ghost" href="#compras">Guia de compras</a>
+        <a class="btn btn-ghost" href="#faq">FAQ</a>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="foot-wave" aria-hidden="true"><svg viewBox="0 0 2880 90" preserveAspectRatio="none"><path d="M0 50 Q 180 15 360 50 T 720 50 T 1080 50 T 1440 50 T 1800 50 T 2160 50 T 2520 50 T 2880 50 V90 H0 Z" fill="rgba(53,208,240,.1)"/></svg></div>
+  <div class="wrap">
+    <p class="foot-line">Água limpa na porta de casa, montada por quem vive lá.</p>
+    <strong>AQUARA</strong> · Solução Comunitária de Tratamento e Filtração de Água de Poços e Minas<br>
+    Parelheiros · Marsilac · extrema Zona Sul de São Paulo · ODS 6 (central) · 3 · 10 · 11<br>
+    Protocolo: filtrar primeiro, clorar depois, verificar sempre.
+    <div class="refs">Referências: OMS, Guidelines for Drinking-water Quality, 4ª ed. (2017) · Ministério da Saúde, Portaria GM/MS 888/2021 · FUNASA · CAWST, Biosand Filter Construction Manual (cawst.org) · Prefeitura de São Paulo, Mapa da Desigualdade.</div>
+  </div>
+  <div class="foot-big" aria-hidden="true">AQUARA</div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+"use strict";
+const $ = id => document.getElementById(id);
+const br = (n, d=1) => n.toLocaleString("pt-BR",{minimumFractionDigits:d,maximumFractionDigits:d});
+
+/* ===== Abas de montagem ===== */
+document.querySelectorAll(".tab-btn").forEach(btn=>{
+  btn.addEventListener("click",()=>{
+    document.querySelectorAll(".tab-btn").forEach(b=>{
+      const on = b===btn;
+      b.setAttribute("aria-selected", on);
+      $(b.getAttribute("aria-controls")).hidden = !on;
+    });
+  });
+});
+
+/* ===== Calculadora ===== */
+(function(){
+  const PRECO_L = 8;
+  function dose(){
+    const V=parseFloat($("c-vol").value)||0, c=parseFloat($("c-conc").value), d=parseFloat($("c-dose").value);
+    const mL = V*d/(c*10);
+    const gotas = mL/0.05;
+    $("c-ml").textContent = (mL<1?br(mL,2):mL<100?br(mL,1):Math.round(mL).toLocaleString("pt-BR"))+" mL";
+    $("c-gotas").textContent = (gotas<10?br(gotas,1):Math.round(gotas).toLocaleString("pt-BR"))+" gotas";
+    const cs = mL/15, cc = mL/5;
+    $("c-gotas-sub").textContent = cs>=1 ? "≈ "+br(cs,1)+" colheres de sopa" : cc>=1 ? "≈ "+br(cc,1)+" colheres de chá" : "medir em gotas";
+    $("c-custo").textContent = "R$ "+br(mL/1000*PRECO_L*(c/2.5),2);
+  }
+  function calib(){
+    const Q=+$("c-vazao").value, C=+$("c-consumo").value;
+    $("c-vazao-txt").textContent = Q+" L/h";
+    $("c-consumo-txt").textContent = C.toLocaleString("pt-BR")+" L/dia";
+    const gpm = Q/75;
+    $("c-gpm").textContent = (gpm<10?br(gpm,1):Math.round(gpm))+" gotas/min";
+    const tratados = 1500*25/1; /* mL × mg/mL ÷ 1 mg/L */
+    $("c-tratados").textContent = tratados.toLocaleString("pt-BR")+" L";
+    const dias = tratados/C;
+    $("c-dias").textContent = dias>90 ? br(dias/30,1)+" meses" : Math.round(dias)+" dias";
+  }
+  function dil(){
+    const L = parseFloat($("c-dil").value)||0;
+    const h = L*1000*2.5/12, a = L*1000-h;
+    $("c-dil-h").textContent = Math.round(h).toLocaleString("pt-BR")+" mL";
+    $("c-dil-a").textContent = Math.round(a).toLocaleString("pt-BR")+" mL";
+  }
+  ["c-vol","c-conc","c-dose"].forEach(id=>$(id).addEventListener("input",dose));
+  ["c-vazao","c-consumo"].forEach(id=>$(id).addEventListener("input",calib));
+  $("c-dil").addEventListener("input",dil);
+  dose(); calib(); dil();
+})();
+
+/* ===== Checklist (memória local do navegador) ===== */
+(function(){
+  const boxes=[...document.querySelectorAll("#checklist input")];
+  let salvo={};
+  try{ salvo=JSON.parse(localStorage.getItem("aquara-check")||"{}"); }catch(e){}
+  boxes.forEach(b=>{ b.checked=!!salvo[b.id]; });
+  function prog(){
+    const n=boxes.filter(b=>b.checked).length;
+    $("ck-prog").textContent = "· "+n+" de "+boxes.length;
+    const o={}; boxes.forEach(b=>{ if(b.checked) o[b.id]=1; });
+    try{ localStorage.setItem("aquara-check",JSON.stringify(o)); }catch(e){}
+  }
+  boxes.forEach(b=>b.addEventListener("change",prog));
+  prog();
+})();
+
+/* ===== PROTÓTIPO 3D (WebGL / Three.js com buffer de profundidade) ===== */
+(function(){
+  const cv=$("p3-cv"), viewEl=cv.parentElement, lblBox=$("p3-labels");
+  function falha(){ viewEl.insertAdjacentHTML("beforeend",'<p class="p3-erro">Seu navegador não conseguiu abrir o modelo 3D (WebGL desativado). Tente abrir a página em outro navegador.</p>'); }
+  if(!window.THREE){ falha(); return; }
+  let renderer;
+  try{ renderer=new THREE.WebGLRenderer({canvas:cv,antialias:true,alpha:true}); }catch(e){ falha(); return; }
+  renderer.setPixelRatio(Math.min(2,window.devicePixelRatio||1));
+  renderer.shadowMap.enabled=true;
+  renderer.shadowMap.type=THREE.PCFSoftShadowMap;
+
+  const scene=new THREE.Scene();
+  const camera=new THREE.PerspectiveCamera(34,1,0.1,100);
+  scene.add(new THREE.HemisphereLight(0xe3f4ff,0x18384c,0.8));
+  const sol=new THREE.DirectionalLight(0xffffff,0.75);
+  sol.position.set(-4,8,5); sol.castShadow=true;
+  sol.shadow.mapSize.set(1024,1024);
+  Object.assign(sol.shadow.camera,{left:-5,right:5,top:5,bottom:-5,near:1,far:20});
+  sol.shadow.bias=-0.0008;
+  scene.add(sol);
+  const fill=new THREE.DirectionalLight(0x9fdcf0,0.25); fill.position.set(5,3,-4); scene.add(fill);
+
+  /* ---------- construtores ---------- */
+  const rgb=a=>new THREE.Color(a[0]/255,a[1]/255,a[2]/255);
+  function mat(c,o){
+    o=o||{}; const al=o.al===undefined?1:o.al;
+    return new THREE.MeshStandardMaterial({color:rgb(c),roughness:o.rough===undefined?0.55:o.rough,metalness:o.metal||0.04,
+      transparent:al<1,opacity:al,depthWrite:al>=0.9,side:o.double?THREE.DoubleSide:THREE.FrontSide});
+  }
+  function add(parent,geo,m,pos){
+    const me=new THREE.Mesh(geo,m);
+    if(pos) me.position.set(pos[0],pos[1],pos[2]);
+    me.castShadow=m.opacity>=0.9; me.receiveShadow=true;
+    parent.add(me); return me;
+  }
+  /* cilindro/cone: r0 embaixo, r1 em cima (mesma convenção do projeto) */
+  function cyl(p,x,z,r0,r1,y0,y1,c,o){ o=o||{};
+    const g=new THREE.CylinderGeometry(r1,r0,y1-y0,o.seg||40,1,!!o.open,o.ts||0,o.tl||Math.PI*2);
+    return add(p,g,mat(c,o),[x,(y0+y1)/2,z]); }
+  function box(p,x0,y0,z0,x1,y1,z1,c,o){
+    return add(p,new THREE.BoxGeometry(x1-x0,y1-y0,z1-z0),mat(c,o),[(x0+x1)/2,(y0+y1)/2,(z0+z1)/2]); }
+  const UP=new THREE.Vector3(0,1,0);
+  function tubo(p,a,b,r,c,o){
+    const A=new THREE.Vector3(...a), B=new THREE.Vector3(...b);
+    const me=add(p,new THREE.CylinderGeometry(r,r,A.distanceTo(B),18),mat(c,o));
+    me.position.copy(A).add(B).multiplyScalar(0.5);
+    me.quaternion.setFromUnitVectors(UP,B.clone().sub(A).normalize());
+    return me; }
+  function cano(p,pts,r,c){
+    for(let i=0;i<pts.length-1;i++) tubo(p,pts[i],pts[i+1],r,c);
+    for(let i=1;i<pts.length-1;i++) add(p,new THREE.SphereGeometry(r*1.15,16,12),mat(c),pts[i]); /* cotovelos sem frestas */
+  }
+
+  const PVC=[176,192,200], TAPA=[196,212,220], TORN=[55,71,79], FERRO=[120,140,150];
+
+  /* mesa */
+  box(scene,-3.4,-0.16,-1.7,3.4,0,1.7,[150,168,178]);
+  box(scene,-3.4,0,-1.7,3.4,0.02,1.7,[184,201,210],{rough:0.85});
+
+  /* E — instalação */
+  const E=new THREE.Group();
+  cyl(E,-2.7,0,0.55,0.03,0,0.4,[150,128,102],{rough:0.95});
+  tubo(E,[-2.7,0,0],[-2.7,0.5,0],0.075,PVC);
+  cyl(E,-2.7,0,0.09,0.09,0.5,0.56,TAPA);
+  cano(E,[[-2.7,0.5,0],[-1.75,0.5,0],[-1.75,1.15,0],[-1.35,1.15,0]],0.05,PVC);
+  cano(E,[[-0.36,0.1,0],[0.45,0.1,0],[0.45,1.2,0],[0.83,1.2,0]],0.05,PVC);
+  cyl(E,0.45,0,0.055,0.17,1.28,1.42,PVC,{open:true,double:true});
+  box(E,0.8,0.02,-0.55,2.3,1.3,0.55,[190,225,245],{al:0.28,double:true,rough:0.1});
+  box(E,0.84,0.04,-0.51,2.26,0.78,0.51,[79,195,247],{al:0.55,rough:0.15});
+  tubo(E,[2.3,0.25,0],[2.48,0.25,0],0.04,TORN);
+  tubo(E,[1.0,0,-0.6],[1.0,2.58,-0.6],0.035,FERRO,{metal:0.5});
+  tubo(E,[1.0,2.58,-0.6],[0.45,2.58,0],0.03,FERRO,{metal:0.5});
+
+  /* B — filtro bioareia */
+  const B=new THREE.Group();
+  const CORTE=Math.PI/2, AZ0=0.62;
+  const shellOpts=corte=>corte?{ts:AZ0+CORTE/2,tl:Math.PI*2-CORTE}:{};
+  const shell=cyl(B,-1.1,0,0.5,0.5,0.02,1.0,[238,244,246],Object.assign({open:true,double:true},shellOpts(true)));
+  const borda=cyl(B,-1.1,0,0.53,0.53,0.98,1.05,[210,222,228],Object.assign({open:true,double:true},shellOpts(true)));
+  cyl(B,-1.1,0,0.5,0.5,0.02,0.05,[238,244,246]);
+  [[0.05,0.12,[184,169,126]],[0.12,0.19,[203,178,135]],[0.19,0.28,[227,193,122]],[0.28,0.72,[240,217,168]]]
+    .forEach(L=>cyl(B,-1.1,0,0.46,0.46,L[0],L[1],L[2],{rough:1}));
+  cyl(B,-1.1,0,0.46,0.46,0.72,0.80,[79,195,247],{al:0.7,rough:0.15});
+  cyl(B,-1.1,0,0.40,0.40,0.805,0.82,[144,164,174]);
+  tubo(B,[-0.62,0.1,0],[-0.36,0.1,0],0.045,TORN);
+  function setCorte(on){
+    shell.geometry.dispose(); borda.geometry.dispose();
+    const o=shellOpts(on);
+    shell.geometry=new THREE.CylinderGeometry(0.5,0.5,0.98,40,1,true,o.ts||0,o.tl||Math.PI*2);
+    borda.geometry=new THREE.CylinderGeometry(0.53,0.53,0.07,40,1,true,o.ts||0,o.tl||Math.PI*2);
+  }
+
+  /* A — clorador */
+  const A=new THREE.Group();
+  tubo(A,[0.45,2.48,0],[0.45,2.58,0],0.015,FERRO);
+  cyl(A,0.45,0,0.23,0.23,2.42,2.48,TAPA);
+  cyl(A,0.45,0,0.2,0.2,1.74,2.42,[238,244,247],{al:0.4,open:true,double:true,rough:0.1});
+  cyl(A,0.45,0,0.165,0.165,1.8,2.32,[246,231,176],{rough:0.3});
+  cyl(A,0.45,0,0.23,0.23,1.68,1.74,TAPA);
+  tubo(A,[0.45,1.68,0],[0.45,1.6,0],0.025,[144,164,174]);
+  box(A,0.40,1.52,-0.045,0.50,1.60,0.045,[197,80,11]);
+  tubo(A,[0.50,1.56,0],[0.58,1.56,0],0.02,[224,123,57]);
+
+  /* C — maleta de análise + amostra DPD */
+  const C=new THREE.Group();
+  box(C,2.35,0.02,0.55,2.85,0.16,0.95,[142,47,47]);
+  box(C,2.53,0.16,0.71,2.67,0.22,0.79,[94,31,31]);
+  cyl(C,2.30,0.42,0.028,0.028,0.02,0.12,[235,238,240],{al:0.45,open:true,double:true});
+  cyl(C,2.30,0.42,0.022,0.022,0.03,0.10,[240,98,146]);
+  cyl(C,2.44,0,0.09,0.09,0.02,0.18,[235,238,240],{al:0.3,open:true,double:true,rough:0.1});
+  const dpd=cyl(C,2.44,0,0.075,0.075,0.03,0.13,[240,98,146],{al:0.92});
+
+  /* D — cartilha */
+  const D=new THREE.Group();
+  box(D,2.42,0.02,-0.98,2.86,0.05,-0.52,[248,250,250]);
+  box(D,2.43,0.048,-0.97,2.85,0.062,-0.53,[10,110,168]);
+
+  const PARTS=[
+   {id:"a",tag:"A",nome:"Clorador de gotejamento",custo:"R$ 53–93",off:[0,0.75,0.6],label:[0.45,2.62,0],g:A,
+    desc:"Reservatório suspenso que pinga hipoclorito 2,5% puro na entrada da caixa. O regulador (equipo de soro ou registro de aquário) calibra a dose: 1 gota/min trata cerca de 75 L/h a 1,0 mg/L."},
+   {id:"b",tag:"B",nome:"Filtro bioareia",custo:"R$ 82–138",off:[-0.85,0,0],label:[-1.1,1.08,0],g:B,
+    desc:"Camadas de brita, pedrisco, areia grossa e areia fina. Retém a turbidez, e a biocamada da superfície remove bactérias após 2 a 3 semanas. Versão didática do modelo CAWST."},
+   {id:"c",tag:"C",nome:"Maleta de análise",custo:"R$ 76–125",off:[0.4,0,0.9],label:[2.6,0.24,0.75],g:C,
+    desc:"Teste DPD de cloro (a amostra fica rosa quando protegida), fita de pH e caneca Secchi. O multiplicador local confere a proteção a cada 15 dias."},
+   {id:"d",tag:"D",nome:"Cartilha de operação",custo:"R$ 15–25",off:[0.4,0,-0.9],label:[2.64,0.07,-0.75],g:D,
+    desc:"Manual ilustrado e plastificado: recarga, tabela de gotas, calibração com DPD e manutenção do filtro."},
+   {id:"e",tag:"E",nome:"Instalação",custo:"materiais da família",off:[0.8,0,-0.6],label:[1.55,1.32,0],g:E,
+    desc:"Caixa d'água da família e tubos de PVC. O clorador pinga na entrada da caixa: contato mínimo de 30 min e residual alvo de 0,5–1,0 mg/L."}
+  ];
+  const meshParte=new Map();
+  PARTS.forEach(p=>{ scene.add(p.g); p.g.traverse(o=>{ if(o.isMesh) meshParte.set(o,p); }); });
+
+  /* ---------- etiquetas HTML ---------- */
+  PARTS.forEach((p,i)=>{
+    const b=document.createElement("button");
+    b.type="button"; b.className="p3-lbl"; b.style.setProperty("--h",(i%2?62:36)+"px");
+    b.innerHTML='<span class="t"><b>'+p.tag+'</b><span class="full"> · '+p.nome+' — '+p.custo+'</span></span>';
+    b.addEventListener("click",()=>seleciona(p));
+    lblBox.appendChild(b); p.lbl=b;
+  });
+
+  /* ---------- seleção ---------- */
+  let sel=null;
+  function seleciona(p){
+    sel=p;
+    PARTS.forEach(q=>{
+      const on=q===p;
+      q.g.traverse(o=>{ if(o.isMesh) o.material.emissive.setHex(on?0x4a3300:0x000000); });
+      q.lbl.classList.toggle("sel",on);
+    });
+    document.querySelectorAll(".p3-peca").forEach(b=>b.classList.toggle("sel",b.dataset.p===p.id));
+    $("p3-info").innerHTML='<div class="nome">'+p.tag+' · '+p.nome+'</div><span class="preco">'+p.custo+'</span><p>'+p.desc+'</p>';
+  }
+  seleciona(PARTS[0]);
+  document.querySelectorAll(".p3-peca").forEach(btn=>btn.addEventListener("click",()=>seleciona(PARTS.find(x=>x.id===btn.dataset.p))));
+
+  /* ---------- câmera orbital ---------- */
+  const alvo=new THREE.Vector3(0.1,0.85,0);
+  const cam={az:AZ0,el:0.36,zoom:1};
+  let rotAuto=true, animOn=true, etqOn=true, explode=0, explodeT=0, ultimo=-1e9, W=800, H=560, visivel=true;
+  const zoomBy=f=>{ cam.zoom=Math.max(0.5,Math.min(2.6,cam.zoom*f)); ultimo=performance.now(); };
+  $("p3-rot").addEventListener("change",e=>rotAuto=e.target.checked);
+  $("p3-expl").addEventListener("change",e=>explodeT=e.target.checked?1:0);
+  $("p3-corte").addEventListener("change",e=>setCorte(e.target.checked));
+  $("p3-etq").addEventListener("change",e=>{etqOn=e.target.checked; lblBox.hidden=!etqOn;});
+  $("p3-anim").addEventListener("change",e=>animOn=e.target.checked);
+  $("p3-re").addEventListener("click",()=>{cam.az=AZ0;cam.el=0.36;cam.zoom=1;});
+  $("p3-zp").addEventListener("click",()=>zoomBy(1.15));
+  $("p3-zm").addEventListener("click",()=>zoomBy(1/1.15));
+
+  const pts=new Map(); let pinchD=0, mov=0;
+  cv.addEventListener("pointerdown",e=>{
+    cv.setPointerCapture(e.pointerId); pts.set(e.pointerId,{x:e.clientX,y:e.clientY});
+    if(pts.size===1) mov=0;
+    if(pts.size===2){const a=[...pts.values()];pinchD=Math.hypot(a[0].x-a[1].x,a[0].y-a[1].y);mov=99;}
+    ultimo=performance.now();
+  });
+  cv.addEventListener("pointermove",e=>{
+    if(!pts.has(e.pointerId)) return;
+    const prev=pts.get(e.pointerId); pts.set(e.pointerId,{x:e.clientX,y:e.clientY});
+    if(pts.size===2){const a=[...pts.values()];const d=Math.hypot(a[0].x-a[1].x,a[0].y-a[1].y);if(pinchD>0)zoomBy(d/pinchD);pinchD=d;return;}
+    const dx=e.clientX-prev.x, dy=e.clientY-prev.y; mov+=Math.abs(dx)+Math.abs(dy);
+    cam.az-=dx*0.0065; cam.el=Math.max(0.05,Math.min(1.25,cam.el+dy*0.005));
+    ultimo=performance.now();
+  });
+  const ray=new THREE.Raycaster(), ndc=new THREE.Vector2();
+  function solta(e){
+    if(pts.size===1 && mov<6 && e.type==="pointerup"){
+      const r=cv.getBoundingClientRect();
+      ndc.set((e.clientX-r.left)/r.width*2-1,-(e.clientY-r.top)/r.height*2+1);
+      ray.setFromCamera(ndc,camera);
+      const hit=ray.intersectObjects(PARTS.map(p=>p.g),true).find(h=>meshParte.has(h.object));
+      if(hit) seleciona(meshParte.get(hit.object));
+    }
+    pts.delete(e.pointerId); ultimo=performance.now();
+  }
+  cv.addEventListener("pointerup",solta); cv.addEventListener("pointercancel",solta);
+  cv.addEventListener("wheel",e=>{ if(!(e.ctrlKey||e.metaKey)) return; e.preventDefault(); zoomBy(1-e.deltaY*0.0012); },{passive:false});
+
+  function resize(){
+    const r=viewEl.getBoundingClientRect();
+    W=Math.max(260,r.width); H=Math.max(360,r.height);
+    renderer.setSize(W,H,false); camera.aspect=W/H; camera.updateProjectionMatrix();
+    lblBox.classList.toggle("compact",W<560);
+  }
+  new ResizeObserver(resize).observe(viewEl);
+  new IntersectionObserver(e=>{visivel=e[0].isIntersecting;}).observe(viewEl);
+
+  /* ---------- gotas e fluxo ---------- */
+  const esf=new THREE.SphereGeometry(1,12,10);
+  function bolinha(c){ const m=new THREE.Mesh(esf,new THREE.MeshStandardMaterial({color:rgb(c),roughness:0.2,emissive:rgb(c),emissiveIntensity:0.25})); scene.add(m); return m; }
+  const FLUXOS=[
+    {pts:[[-2.7,0.5,0],[-1.75,0.5,0],[-1.75,1.15,0],[-1.35,1.15,0]],n:3,vel:0.22,cor:[161,136,127],g:E},
+    {pts:[[-0.36,0.1,0],[0.45,0.1,0],[0.45,1.2,0],[0.83,1.2,0]],n:3,vel:0.3,cor:[79,195,247],g:E}];
+  FLUXOS.forEach(f=>{
+    f.fase=0; f.len=[]; f.tot=0;
+    for(let i=0;i<f.pts.length-1;i++){const l=new THREE.Vector3(...f.pts[i]).distanceTo(new THREE.Vector3(...f.pts[i+1]));f.len.push(l);f.tot+=l;}
+    f.m=[]; for(let i=0;i<f.n;i++){const b=bolinha(f.cor);b.scale.setScalar(0.03);f.m.push(b);}
+  });
+  function naTrilha(f,t,out){
+    let d=(t%1)*f.tot;
+    for(let i=0;i<f.len.length;i++){ if(d<=f.len[i]){const k=d/f.len[i],a=f.pts[i],b=f.pts[i+1];return out.set(a[0]+(b[0]-a[0])*k,a[1]+(b[1]-a[1])*k,a[2]+(b[2]-a[2])*k);} d-=f.len[i]; }
+    return out.set(...f.pts[f.pts.length-1]);
+  }
+  const FONTES=[
+    {p:[-1.35,1.12,0],y:0.81,cor:[161,136,127],iv:620,g:E},
+    {p:[0.45,1.5,0],y:1.42,cor:[242,214,120],iv:480,g:A},
+    {p:[2.48,0.22,0],y:0.14,cor:[79,195,247],iv:700,g:E}];
+  FONTES.forEach(f=>{ f.t=0; f.pool=[0,1,2,3].map(()=>{const b=bolinha(f.cor);b.scale.setScalar(0.022);b.visible=false;return {m:b,y:0,v:0,on:false};}); });
+
+  /* ---------- loop ---------- */
+  const tmp=new THREE.Vector3();
+  let ultT=0, tGl=0;
+  function loop(t){
+    requestAnimationFrame(loop);
+    const dt=Math.min(0.05,(t-ultT)/1000||0.016); ultT=t;
+    if(!visivel) return;
+    tGl+=dt;
+    if(rotAuto && !pts.size && t-ultimo>2600) cam.az+=dt*0.16;
+    explode+=(explodeT-explode)*Math.min(1,dt*5);
+    PARTS.forEach(p=>p.g.position.set(p.off[0]*explode,p.off[1]*explode,p.off[2]*explode));
+
+    const fovV=THREE.MathUtils.degToRad(camera.fov/2);
+    const base=Math.max(2.1/Math.tan(fovV),3.5/(Math.tan(fovV)*camera.aspect))+2.2;
+    const dist=base/cam.zoom;
+    camera.position.set(alvo.x+Math.sin(cam.az)*Math.cos(cam.el)*dist,alvo.y+Math.sin(cam.el)*dist,alvo.z+Math.cos(cam.az)*Math.cos(cam.el)*dist);
+    camera.lookAt(alvo);
+
+    /* fluxo */
+    FLUXOS.forEach(f=>{ f.fase=(f.fase+dt*f.vel)%1;
+      f.m.forEach((b,i)=>{ b.visible=animOn; if(animOn){ naTrilha(f,f.fase+i/f.n,b.position); b.position.add(f.g.position); } }); });
+    /* gotas */
+    FONTES.forEach(f=>{
+      if(animOn && t-f.t>f.iv){ const d=f.pool.find(d=>!d.on); if(d){ f.t=t; d.on=true; d.y=f.p[1]; d.v=1.2; } }
+      f.pool.forEach(d=>{
+        if(!d.on){ d.m.visible=false; return; }
+        d.y-=d.v*dt; d.v+=3.2*dt;
+        if(d.y<=f.y || !animOn){ d.on=false; d.m.visible=false; return; }
+        d.m.visible=true; d.m.position.set(f.p[0],d.y,f.p[2]).add(f.g.position);
+      });
+    });
+    /* amostra DPD: incolor -> rosa */
+    const k=(Math.sin(tGl*0.55)+1)/2;
+    dpd.material.color.setRGB((232+8*k)/255,(246-148*k)/255,(238-92*k)/255);
+
+    renderer.render(scene,camera);
+
+    /* etiquetas */
+    if(etqOn){
+      PARTS.forEach(p=>{
+        tmp.set(...p.label).add(p.g.position).project(camera);
+        const vis=tmp.z<1 && Math.abs(tmp.x)<1.1 && Math.abs(tmp.y)<1.1;
+        p.lbl.hidden=!vis;
+        if(vis){ p.lbl.style.left=((tmp.x+1)/2*W)+"px"; p.lbl.style.top=((1-tmp.y)/2*H)+"px"; p.lbl.style.zIndex=Math.round((1-tmp.z)*1000); }
+      });
+    }
+    $("p3-vista").textContent="zoom "+br(cam.zoom,2)+"× · "+(rotAuto?"girando":"pausado");
+  }
+  resize(); requestAnimationFrame(loop);
+})();
+
+</script>
+<script>
+(()=>{
+"use strict";
+const RM=matchMedia("(prefers-reduced-motion: reduce)").matches;
+const de=document.documentElement;
+const $=(s,r=document)=>r.querySelector(s);
+const $$=(s,r=document)=>[...r.querySelectorAll(s)];
+const clamp=(v,a=0,b=1)=>Math.min(b,Math.max(a,v));
+
+/* fundo de profundidade + medidor */
+const depth=document.createElement("div"); depth.className="depth"; depth.setAttribute("aria-hidden","true"); document.body.prepend(depth);
+const gauge=document.createElement("div"); gauge.className="gauge"; gauge.setAttribute("aria-hidden","true"); gauge.innerHTML="<i></i>"; document.body.append(gauge);
+
+/* contador: o texto final é sempre restaurado exatamente como no original */
+function count(el){
+  if(!el) return;
+  const orig=el.textContent, re=/\d+(?:,\d+)?/g, nums=orig.match(re);
+  if(!nums) return;
+  const tgt=nums.map(n=>parseFloat(n.replace(",","."))), dec=nums.map(n=>(n.split(",")[1]||"").length);
+  const shell=document.createElement("span"), sr=document.createElement("span");
+  shell.setAttribute("aria-hidden","true"); sr.className="sr"; sr.textContent=orig;
+  el.textContent=""; el.append(shell,sr);
+  const t0=performance.now();
+  (function step(now){
+    const k=clamp((now-t0)/1600), e=1-Math.pow(1-k,3); let i=0;
+    shell.textContent=orig.replace(re,()=>{const d=dec[i],v=tgt[i++]*e;return v.toFixed(d).replace(".",",");});
+    if(k<1) requestAnimationFrame(step); else el.textContent=orig;
+  })(t0);
+}
+
+/* reveal com movimento próprio por seção */
+const MAP=[
+ ["#problema .sec-head","up"],["#problema .glass","scale"],["#problema .stat","up",110],["#problema .alerta","up"],
+ ["#kit .sec-head","up"],["#kit .card","depth",120],
+ ["#prototipo-3d .sec-head","up"],
+ ["#montagem .sec-head","up"],["#montagem .tabs","up"],["#montagem .passo-item","left",90],["#montagem .alerta","up"],
+ ["#calculadora .sec-head","up"],["#calculadora .calc","scale"],
+ ["#compras .sec-head","up"],["#compras h3.sub","left"],["#compras .tw","up"],["#compras .card","up",80],
+ ["#cronograma .sec-head","up"],["#cronograma .tl","left"],["#cronograma .tw","up"],["#cronograma .alerta","up",90],
+ ["#equipe .sec-head","up"],["#equipe .card","up",70],
+ ["#faq .sec-head","up"],["#faq details","up",60],["#contato .cta-box","scale"]
+];
+if(!RM && "IntersectionObserver" in window){
+  try{
+    de.classList.add("js");
+    const io=new IntersectionObserver(es=>es.forEach(e=>{
+      if(!e.isIntersecting) return;
+      const t=e.target; t.classList.add("in"); io.unobserve(t);
+      if(t.matches(".stat")) count($(".big",t));
+      if(t.matches(".fluxo")) $$(".fx",t).forEach((f,i)=>setTimeout(()=>f.classList.add("on"),i*380));
+    }),{threshold:.15,rootMargin:"0px 0px -8% 0px"});
+    MAP.forEach(([sel,v,dl])=>$$(sel).forEach((el,i)=>{el.classList.add("rv",v); if(dl) el.style.setProperty("--dl",((i%4)*dl)+"ms"); io.observe(el);}));
+    const fl=$(".fluxo"); if(fl) io.observe(fl);
+    $$(".glass").forEach(g=>io.observe(g));
+    const pv=$(".p3-view"), ex=$("#p3-expl");
+    if(pv){
+      const io3=new IntersectionObserver(e=>{
+        if(!e[0].isIntersecting) return; io3.disconnect(); pv.classList.add("in");
+        if(ex){ /* entrada: o modelo se monta a partir da vista explodida */
+          ex.checked=true; ex.dispatchEvent(new Event("change"));
+          setTimeout(()=>{ex.checked=false; ex.dispatchEvent(new Event("change"));},1600);
+        }
+      },{threshold:.2});
+      io3.observe(pv);
+    }
+    setTimeout(()=>$$(".hstat .big").forEach(count),1100);
+  }catch(err){ de.classList.remove("js"); }
+}else{
+  $$(".fx").forEach(f=>f.classList.add("on")); $$(".tl").forEach(t=>t.classList.add("on"));
+  $$("#wm-svg animate,#wm-svg animateTransform").forEach(a=>a.remove());
+}
+
+/* scroll: um único handler com rAF */
+const nav=$("nav.top"), secs=$$("main section"), links=$$(".navlinks a"), hero=$(".hero"), tl=$(".timeline"), tls=$$(".tl");
+let tk=false;
+function onScroll(){
+  tk=false;
+  const y=scrollY, vh=innerHeight, max=de.scrollHeight-vh, p=max>0?clamp(y/max):0;
+  depth.style.setProperty("--d",(1-p).toFixed(3));
+  gauge.style.setProperty("--sp",p.toFixed(3));
+  nav.classList.toggle("sc",y>40);
+  if(hero && y<vh*1.3 && !RM) hero.style.setProperty("--sy",y);
+  let cur="";
+  secs.forEach(s=>{const r=s.getBoundingClientRect(); if(r.top<vh*.4 && r.bottom>vh*.4) cur=s.id;});
+  links.forEach(a=>{ if(a.getAttribute("href")==="#"+cur) a.setAttribute("aria-current","location"); else a.removeAttribute("aria-current"); });
+  if(tl){
+    const r=tl.getBoundingClientRect();
+    tl.style.setProperty("--p",clamp((vh*.65-r.top)/r.height).toFixed(3));
+    tls.forEach(t=>t.classList.toggle("on",t.getBoundingClientRect().top<vh*.65));
+  }
+}
+addEventListener("scroll",()=>{ if(!tk){tk=true; requestAnimationFrame(onScroll);} },{passive:true});
+addEventListener("resize",onScroll);
+onScroll();
+
+/* bolhas do hero (canvas leve, pausa fora da tela) */
+const cv=$("#hero-cv");
+if(cv && cv.getContext){
+  const ctx=cv.getContext("2d"); let W=0,H=0,bs=[],run=false,raf=0,mx=0;
+  const mk=()=>({x:Math.random()*W,y:H+Math.random()*H*.4,r:1+Math.random()*4.5,v:.25+Math.random()*.7,ph:Math.random()*6.28,a:.15+Math.random()*.4});
+  function size(){
+    const dpr=Math.min(1.5,devicePixelRatio||1), r=cv.getBoundingClientRect();
+    W=r.width; H=r.height; cv.width=W*dpr; cv.height=H*dpr; ctx.setTransform(dpr,0,0,dpr,0,0);
+    bs=Array.from({length:Math.round(clamp(W/32,14,46)*(RM?.6:1))},()=>{const b=mk(); b.y=Math.random()*H; return b;});
+  }
+  function frame(t){
+    ctx.clearRect(0,0,W,H);
+    for(const b of bs){
+      if(!RM){ b.y-=b.v; b.x+=Math.sin(t/1600+b.ph)*.35+mx*b.r*.02; if(b.y<-10) Object.assign(b,mk()); }
+      ctx.fillStyle="rgba(120,220,245,"+(b.a*.12)+")"; ctx.strokeStyle="rgba(180,235,250,"+(b.a*.6)+")"; ctx.lineWidth=.7;
+      ctx.beginPath(); ctx.arc(b.x,b.y,b.r,0,6.283); ctx.fill(); ctx.stroke();
+      ctx.fillStyle="rgba(255,255,255,"+b.a+")"; ctx.beginPath(); ctx.arc(b.x-b.r*.3,b.y-b.r*.3,b.r*.22,0,6.283); ctx.fill();
+    }
+    raf=(run&&!RM)?requestAnimationFrame(frame):0;
+  }
+  const start=()=>{ if(!raf){ run=true; raf=requestAnimationFrame(frame); } };
+  size(); frame(0);
+  if(!RM){
+    new IntersectionObserver(e=>{ run=e[0].isIntersecting; if(run) start(); }).observe(hero);
+    document.addEventListener("visibilitychange",()=>{ run=!document.hidden; if(run) start(); });
+    hero.addEventListener("pointermove",e=>{ mx=(e.clientX/innerWidth-.5)*2; },{passive:true});
+    start();
+  }
+  let rt; addEventListener("resize",()=>{ clearTimeout(rt); rt=setTimeout(()=>{size(); if(RM) frame(0);},200); });
+}
+
+/* tabelas: rótulos para a leitura empilhada no celular */
+$$("table").forEach(t=>{
+  const h=$$("thead th",t).map(x=>x.textContent.trim()); if(!h.length) return;
+  t.classList.add("stack");
+  $$("tbody tr",t).forEach(tr=>{ if(tr.querySelector("[colspan]")) return; $$("td",tr).forEach((td,i)=>{ if(h[i]) td.dataset.label=h[i]; }); });
+});
+
+/* calculadora: preenchimento dos sliders, feedback nos resultados, barra de dose */
+$$("input[type=range]").forEach(r=>{
+  const f=()=>r.style.setProperty("--p",((r.value-r.min)/(r.max-r.min)*100)+"%");
+  r.addEventListener("input",f); f();
+});
+const mo=new MutationObserver(ms=>ms.forEach(m=>{
+  const n=m.target.nodeType===3?m.target.parentElement:m.target, v=n&&n.closest(".val");
+  if(v){ v.classList.remove("tick"); void v.offsetWidth; v.classList.add("tick"); }
+}));
+$$(".res .val").forEach(v=>mo.observe(v,{childList:true,characterData:true,subtree:true}));
+const sel=$("#c-dose"), calcRes=sel&&sel.closest(".calc")&&$(".res",sel.closest(".calc"));
+if(sel && calcRes){
+  calcRes.insertAdjacentHTML("beforebegin",'<div class="dosebar" aria-hidden="true"><div class="trk"><i class="zone"></i><i class="lim l2"></i><i class="lim l5"></i><i class="mk" id="db-mk"></i></div><div class="lab"><span>0</span><span>0,5–1,0 mg/L: faixa do projeto</span><span>2,0 mg/L: máximo do projeto</span><span>5,0 mg/L: limite OMS</span></div></div>');
+  const upd=()=>{ $("#db-mk").style.left=(clamp(parseFloat(sel.value)/5)*100)+"%"; };
+  sel.addEventListener("change",upd); upd();
+}
+})();
+</script>
+</body>
+</html>
